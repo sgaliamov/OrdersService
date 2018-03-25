@@ -8,7 +8,7 @@ export class OrdersService {
 
   constructor(private http: HttpClient) { }
 
-  load(page = 1) {
+  load(page: number) {
     return this.http.get<PagedResult<OrderDto[]>>(`${this.API_PATH}${page}`);
   }
 

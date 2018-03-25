@@ -18,16 +18,16 @@ export class AppEffects {
 
   @Effect()
   readonly init$ = defer(() => this.ordersService
-    .load()
+    .load(1)
     .pipe(mapResult, handleError('Initialization failed.'))
   );
 
   @Effect()
   readonly selectPage$ = this.actions$.pipe(
-    ofType<SelectPage>(),
+    ofType<SelectPage>(OrderActionTypes.SELECT_PAGE),
     map(action => action.payload.page),
     switchMap(page => this.ordersService
-      .load()
+      .load(page)
       .pipe(mapResult, handleError('Can\'t change page.')))
   );
 
