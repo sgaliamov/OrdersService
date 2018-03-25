@@ -8,19 +8,18 @@ namespace OrdersService.WebApi.Controllers
     [Route("api/[controller]")]
     public class OrdersQueryController : Controller
     {
-        [HttpGet]
-        [Route("/list/{page}")]
-        public IEnumerable<OrderReadModel> GetByPage(int page = 1)
+        [HttpGet("list/{page:int?}")]
+        public IEnumerable<OrderReadModel> GetByPage(int? page)
         {
             return Enumerable.Range(0, 100)
-                .Skip((page - 1) * 20)
+                .Skip((page ?? 1 - 1) * 20)
                 .Take(20)
                 .Select(GetOrderReadModel)
                 .ToArray();
         }
 
-        [HttpGet("{id}")]
-        public OrderReadModel Get(int id)
+        [HttpGet("id/{id:int}")]
+        public OrderReadModel GetById(int id)
         {
             return GetOrderReadModel(id);
         }

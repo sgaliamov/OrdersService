@@ -4,7 +4,7 @@ import { OrderDto } from './';
 
 @Injectable()
 export class OrdersService {
-  private API_PATH = 'http://localhost:4201/api/ordersQuery/list/';
+  private API_PATH = 'http://localhost:54765/api/ordersQuery/list/';
 
   constructor(private http: HttpClient) { }
 

@@ -15,9 +15,7 @@ export class AppEffects {
   readonly init$ =
     Observable.defer(() => {
       return this.ordersService.load()
-        .map(orders => new OrdersLoaded({
-          orders
-        }));
+        .map(orders => new OrdersLoaded({ orders }));
     });
 
   constructor(
