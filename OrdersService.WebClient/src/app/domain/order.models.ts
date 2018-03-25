@@ -10,3 +10,8 @@ export interface OrderDto {
   address: string;
   customerName: string;
 }
+
+export interface PagedResult<T> {
+  total: number;
+  data: T;
+}

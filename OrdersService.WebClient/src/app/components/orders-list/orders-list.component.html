@@ -1,6 +1,6 @@
-<kendo-grid [data]="view" [pageSize]="pageSize" [skip]="state.skip" [sortable]="false" [pageable]="true" [scrollable]="'none'" (dataStateChange)="dataStateChange($event)">
-  <kendo-grid-column field="ID"></kendo-grid-column>
-  <kendo-grid-column field="CustomerName"></kendo-grid-column>
-  <kendo-grid-column field="Address"></kendo-grid-column>
-  <kendo-grid-column field="Price"></kendo-grid-column>
+<kendo-grid [data]="data" [pageSize]="pageSize" [skip]="skip" [sortable]="false" [pageable]="true" [scrollable]="'none'" (dataStateChange)="dataStateChange($event)">
+  <kendo-grid-column field="id"></kendo-grid-column>
+  <kendo-grid-column field="customerName"></kendo-grid-column>
+  <kendo-grid-column field="address"></kendo-grid-column>
+  <kendo-grid-column field="price"></kendo-grid-column>
 </kendo-grid>

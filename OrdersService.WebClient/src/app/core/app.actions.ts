@@ -19,7 +19,7 @@ export class SelectPage implements Action {
 export class OrdersLoaded implements Action {
   readonly type = OrderActionTypes.LOADED;
 
-  constructor(public readonly payload: { orders: OrderDto[] }) { }
+  constructor(public readonly payload: { orders: OrderDto[], total: number }) { }
 }
 
 export class AddOrder implements Action {

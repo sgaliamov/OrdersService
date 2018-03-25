@@ -7,6 +7,7 @@ export interface AppState {
 
 export interface OrdersState extends EntityState<OrderDto> {
   page: number;
+  total?: number;
   selectedOrderId?: string;
 }
 

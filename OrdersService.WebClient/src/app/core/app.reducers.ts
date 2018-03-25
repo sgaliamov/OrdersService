@@ -5,7 +5,7 @@ import {
   createFeatureSelector,
   createSelector,
   MetaReducer
-  } from '@ngrx/store';
+} from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from '../../environments/environment';
 import { OrderDto } from '../domain';
@@ -15,8 +15,7 @@ import {
   OrderActionTypes,
   ordersAdapter,
   OrdersState
-  } from './';
-
+} from './';
 
 
 const initialState: OrdersState = ordersAdapter.getInitialState({
@@ -26,7 +25,10 @@ const initialState: OrdersState = ordersAdapter.getInitialState({
 export function ordersReducer(state: OrdersState = initialState, action: OrderActions): OrdersState {
   switch (action.type) {
     case OrderActionTypes.LOADED:
-      return ordersAdapter.addAll(action.payload.orders, state);
+      return ordersAdapter.addAll(action.payload.orders, {
+        ...state,
+        total: action.payload.total
+      });
 
     case OrderActionTypes.UPDATE:
       return ordersAdapter.upsertOne({

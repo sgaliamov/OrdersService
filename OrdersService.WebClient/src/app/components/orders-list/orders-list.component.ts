@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
-import { OrderDto } from '../../domain';
+import { OrderDto, PagedResult } from '../../domain';
 
 
 @Component({
@@ -13,10 +13,10 @@ export class OrdersListComponent {
   skip = 0;
 
   @Input()
-  readonly orders: OrderDto[];
+  readonly data: PagedResult<OrderDto[]>;
 
   @Input()
-  readonly pageSize = 10;
+  readonly pageSize = 5;
 
   @Output()
   readonly pageChanged: EventEmitter<number> = new EventEmitter<number>();

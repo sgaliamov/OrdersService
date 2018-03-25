@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { OrderDto } from './';
+import { OrderDto, PagedResult } from './';
 
 @Injectable()
 export class OrdersService {
@@ -9,7 +9,7 @@ export class OrdersService {
   constructor(private http: HttpClient) { }
 
   load(page = 1) {
-    return this.http.get<OrderDto[]>(`${this.API_PATH}${page}`);
+    return this.http.get<PagedResult<OrderDto[]>>(`${this.API_PATH}${page}`);
   }
 
 }

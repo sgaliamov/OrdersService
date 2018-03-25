@@ -29,8 +29,7 @@ import { OrdersService } from './domain';
     OrderDetailsPageComponent,
     OrderEditPageComponent,
     NotFoundPageComponent,
-    AboutPageComponent,
-    GridModule
+    AboutPageComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +39,8 @@ import { OrdersService } from './domain';
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
+    GridModule
   ],
   providers: [OrdersService],
   bootstrap: [AppComponent]
