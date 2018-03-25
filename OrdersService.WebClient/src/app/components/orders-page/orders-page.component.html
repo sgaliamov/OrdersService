@@ -1,1 +1,1 @@
-<app-orders-list [orders]="orders | async"></app-orders-list>
+<app-orders-list [orders]="orders | async" (pageChanged)="pageChanged($event)"></app-orders-list>

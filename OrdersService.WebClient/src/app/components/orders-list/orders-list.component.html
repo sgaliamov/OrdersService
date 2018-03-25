@@ -1,5 +1,6 @@
-<ul>
-  <li *ngFor="let order of orders">
-    <app-orders-list-item [order]="order"></app-orders-list-item>
-  </li>
-</ul>
+<kendo-grid [data]="view" [pageSize]="pageSize" [skip]="state.skip" [sortable]="false" [pageable]="true" [scrollable]="'none'" (dataStateChange)="dataStateChange($event)">
+  <kendo-grid-column field="ID"></kendo-grid-column>
+  <kendo-grid-column field="CustomerName"></kendo-grid-column>
+  <kendo-grid-column field="Address"></kendo-grid-column>
+  <kendo-grid-column field="Price"></kendo-grid-column>
+</kendo-grid>

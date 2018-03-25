@@ -6,7 +6,8 @@ export enum OrderActionTypes {
   LOADED = '[Order] Orders Loaded',
   ADD = '[Order] Add Order',
   UPDATE = '[Order] Update Order',
-  SELECT_PAGE = '[Order] Select Page'
+  SELECT_PAGE = '[Order] Select Page',
+  FAIL = '[Order] Fail'
 }
 
 export class SelectPage implements Action {
@@ -33,8 +34,15 @@ export class UpdateOrder implements Action {
   constructor(public readonly payload: { order: OrderDto }) { }
 }
 
+export class Fail implements Action {
+  readonly type = OrderActionTypes.FAIL;
+
+  constructor(public readonly payload: { message: string }) { }
+}
+
 export type OrderActions
   = OrdersLoaded
   | AddOrder
   | UpdateOrder
-  | SelectPage;
+  | SelectPage
+  | Fail;

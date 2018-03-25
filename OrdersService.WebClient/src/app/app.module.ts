@@ -13,7 +13,6 @@ import {
   OrderDetailsPageComponent,
   OrderEditPageComponent,
   OrdersListComponent,
-  OrdersListItemComponent,
   OrdersPageComponent
   } from './components';
 import { AboutPageComponent, AppComponent, NotFoundPageComponent } from './core';
@@ -26,7 +25,6 @@ import { OrdersService } from './domain';
   declarations: [
     AppComponent,
     OrdersListComponent,
-    OrdersListItemComponent,
     OrdersPageComponent,
     OrderDetailsPageComponent,
     OrderEditPageComponent,
