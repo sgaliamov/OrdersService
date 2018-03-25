@@ -6,3 +6,6 @@
 - configure and use selectors
 - apply material
 - add one e2e test
+
+- swagger
+- logger
