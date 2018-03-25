@@ -1,25 +1,40 @@
 import { Action } from '@ngrx/store';
-import { Order } from './';
+import { OrderDto, OrderModel } from '../domain';
 
 
 export enum OrderActionTypes {
-  LOAD_ORDERS = '[Order] Load Orders',
-  ADD_ORDER = '[Order] Add Order',
-  UPDATE_ORDER = '[Order] Update Order'
+  LOADED = '[Order] Orders Loaded',
+  ADD = '[Order] Add Order',
+  UPDATE = '[Order] Update Order',
+  SELECT_PAGE = '[Order] Select Page'
 }
 
-export class LoadOrders implements Action {
-  readonly type = OrderActionTypes.LOAD_ORDERS;
+export class SelectPage implements Action {
+  readonly type = OrderActionTypes.SELECT_PAGE;
+
+  constructor(public readonly payload: { page: number }) { }
+}
+
+export class OrdersLoaded implements Action {
+  readonly type = OrderActionTypes.LOADED;
+
+  constructor(public readonly payload: { orders: OrderDto[] }) { }
 }
 
 export class AddOrder implements Action {
-  readonly type = OrderActionTypes.ADD_ORDER;
+  readonly type = OrderActionTypes.ADD;
 
-  constructor(public readonly payload: { order: Order }) { }
+  constructor(public readonly payload: { order: OrderModel }) { }
 }
 
 export class UpdateOrder implements Action {
-  readonly type = OrderActionTypes.UPDATE_ORDER;
+  readonly type = OrderActionTypes.UPDATE;
 
-  constructor(public readonly payload: { id: string; order: Order }) { }
+  constructor(public readonly payload: { order: OrderDto }) { }
 }
+
+export type OrderActions
+  = OrdersLoaded
+  | AddOrder
+  | UpdateOrder
+  | SelectPage;

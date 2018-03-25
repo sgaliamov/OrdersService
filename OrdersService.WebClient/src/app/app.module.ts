@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, AppEffects, metaReducers, reducers } from './core';
 import { NotFoundPageComponent } from './not-found-page.component';
 import { OrdersModule } from './orders/orders.module';
+import { OrdersService } from './domain';
 
 
 
@@ -24,7 +25,7 @@ import { OrdersModule } from './orders/orders.module';
     EffectsModule.forRoot([AppEffects]),
     OrdersModule
   ],
-  providers: [],
+  providers: [OrdersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

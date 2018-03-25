@@ -6,6 +6,12 @@
 - configure and use selectors
 - apply material
 - add one e2e test
+- config
 
 - swagger
 - logger
+
+## not to do
+
+- flex layout
+- authentication

@@ -9,9 +9,12 @@ namespace OrdersService.WebApi.Controllers
     public class OrdersQueryController : Controller
     {
         [HttpGet]
-        public IEnumerable<OrderReadModel> Get()
+        [Route("/list/{page}")]
+        public IEnumerable<OrderReadModel> GetByPage(int page = 1)
         {
             return Enumerable.Range(0, 100)
+                .Skip((page - 1) * 20)
+                .Take(20)
                 .Select(GetOrderReadModel)
                 .ToArray();
         }
