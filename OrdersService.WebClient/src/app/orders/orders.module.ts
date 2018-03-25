@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OrdersListComponent, OrdersListItemComponent, OrdersPageComponent, OrdersRoutingModule } from './';
-
+import {
+  OrderDetailsPageComponent,
+  OrderEditPageComponent,
+  OrdersListComponent,
+  OrdersListItemComponent,
+  OrdersPageComponent,
+  OrdersRoutingModule
+  } from './';
 
 
 @NgModule({
@@ -12,7 +18,9 @@ import { OrdersListComponent, OrdersListItemComponent, OrdersPageComponent, Orde
   declarations: [
     OrdersListComponent,
     OrdersListItemComponent,
-    OrdersPageComponent
+    OrdersPageComponent,
+    OrderDetailsPageComponent,
+    OrderEditPageComponent
   ]
 })
 export class OrdersModule { }
