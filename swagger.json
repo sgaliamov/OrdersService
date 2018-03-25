@@ -1,0 +1,208 @@
+{
+  "swagger": "2.0",
+  "info": { "version": "v1", "title": "Order API" },
+  "paths": {
+    "/api/Issues/{orderId}": {
+      "get": {
+        "tags": ["Issues"],
+        "operationId": "Get",
+        "consumes": [],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "406": { "description": "Not Acceptable" },
+          "400": { "description": "Bad Request" },
+          "422": { "description": "Client Error" },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": { "$ref": "#/definitions/IssueReadModel" }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      }
+    },
+    "/api/OrdersCommand/{id}": {
+      "put": {
+        "tags": ["OrdersCommand"],
+        "operationId": "Update",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "application/*+json"
+        ],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/OrderInputModel" }
+          }
+        ],
+        "responses": {
+          "406": { "description": "Not Acceptable" },
+          "400": { "description": "Bad Request" },
+          "422": { "description": "Client Error" },
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/IdField" }
+          }
+        }
+      }
+    },
+    "/api/OrdersCommand": {
+      "post": {
+        "tags": ["OrdersCommand"],
+        "operationId": "Create",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "application/*+json"
+        ],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/OrderInputModel" }
+          }
+        ],
+        "responses": {
+          "406": { "description": "Not Acceptable" },
+          "400": { "description": "Bad Request" },
+          "422": { "description": "Client Error" },
+          "201": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/IdField" }
+          }
+        }
+      }
+    },
+    "/api/OrdersQuery/list/{page}": {
+      "get": {
+        "tags": ["OrdersQuery"],
+        "operationId": "GetByPage",
+        "consumes": [],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "406": { "description": "Not Acceptable" },
+          "400": { "description": "Bad Request" },
+          "422": { "description": "Client Error" },
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Paged[OrderReadModel[]]" }
+          }
+        }
+      }
+    },
+    "/api/OrdersQuery/id/{id}": {
+      "get": {
+        "tags": ["OrdersQuery"],
+        "operationId": "GetById",
+        "consumes": [],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "406": { "description": "Not Acceptable" },
+          "400": { "description": "Bad Request" },
+          "422": { "description": "Client Error" },
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/OrderReadModel" }
+          },
+          "404": { "description": "Not Found" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "IssueReadModel": {
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "summary": { "type": "string" }
+      }
+    },
+    "OrderInputModel": {
+      "required": [
+        "city",
+        "country",
+        "customerName",
+        "number",
+        "phone",
+        "postCode",
+        "price",
+        "street"
+      ],
+      "type": "object",
+      "properties": {
+        "city": { "maxLength": 100, "type": "string" },
+        "country": { "maxLength": 100, "type": "string" },
+        "customerName": { "maxLength": 260, "type": "string" },
+        "number": { "maxLength": 100, "type": "string" },
+        "phone": { "maxLength": 15, "type": "string" },
+        "postCode": { "maxLength": 32, "type": "string" },
+        "price": {
+          "format": "double",
+          "maximum": "Infinity",
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "street": { "maxLength": 100, "type": "string" }
+      }
+    },
+    "IdField": {
+      "type": "object",
+      "properties": { "id": { "type": "string" } }
+    },
+    "Paged[OrderReadModel[]]": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": { "$ref": "#/definitions/OrderReadModel" }
+        },
+        "total": { "format": "int32", "type": "integer" }
+      }
+    },
+    "OrderReadModel": {
+      "type": "object",
+      "properties": {
+        "city": { "type": "string" },
+        "country": { "type": "string" },
+        "customerName": { "type": "string" },
+        "number": { "type": "string" },
+        "orderId": { "type": "string" },
+        "phone": { "type": "string" },
+        "postCode": { "type": "string" },
+        "price": { "format": "double", "type": "number" },
+        "street": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+*.dbmdl
+*.jfm
+\.vs
+\bin
+\node_modules
+\obj
+*.user

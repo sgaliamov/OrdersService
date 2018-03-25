@@ -1,0 +1,9 @@
+<section *ngIf="data | async as items; else loading">
+  <ul *ngIf="items.length; else noItems">
+    <li *ngFor="let item of items">
+      <a target="blank" href="https://albelli-test-cc.atlassian.net/projects/CC/board?issue-key={{item.key}}">{{item.summary}}</a>
+    </li>
+  </ul>
+  <ng-template #noItems>No tickets</ng-template>
+</section>
+<ng-template #loading>loading...</ng-template>
