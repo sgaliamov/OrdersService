@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { NotFoundPageComponent, AboutPageComponent } from './core';
-import { OrdersPageComponent } from './orders';
+import { OrdersPageComponent } from './components';
+import { AboutPageComponent, NotFoundPageComponent } from './core';
 
 const routes: Routes = [
   {
