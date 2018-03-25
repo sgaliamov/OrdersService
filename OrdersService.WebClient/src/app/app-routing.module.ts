@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { NotFoundPageComponent } from './not-found-page.component';
+import { NotFoundPageComponent, AboutPageComponent } from './core';
+import { OrdersPageComponent } from './orders';
 
 const routes: Routes = [
   {
@@ -10,7 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'orders',
-    loadChildren: 'app/orders/orders.module#OrdersModule'
+    component: OrdersPageComponent
+  },
+  {
+    path: 'about',
+    component: AboutPageComponent
   },
   {
     path: '404',
@@ -25,7 +30,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ]
+    RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
