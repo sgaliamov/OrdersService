@@ -1,11 +1,17 @@
-<ul>
-  <li>
-    <a [routerLink]="['./orders']">Orders</a>
-  </li>
-  <li>
-    <a [routerLink]="['./about']">About</a>
-  </li>
-</ul>
+<section class="k-widget k-tabstrip k-floatwrap k-header k-tabstrip-top">
+  <ul class="k-reset k-tabstrip-items">
+    <li class="k-item k-state-default"
+        routerLinkActive="k-state-active">
+      <a class="k-link"
+         [routerLink]="['./orders']">Orders</a>
+    </li>
+    <li class="k-item k-state-default"
+        routerLinkActive="k-state-active">
+      <a class="k-link"
+         [routerLink]="['./about']">About</a>
+    </li>
+  </ul>
+</section>
 <section>
   <router-outlet></router-outlet>
 </section>
