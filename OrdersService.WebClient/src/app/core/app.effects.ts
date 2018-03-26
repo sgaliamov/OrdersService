@@ -6,7 +6,7 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { OrdersService, PagedResult, OrderDto } from '../domain';
-import { Fail, OrderActionTypes, OrdersLoaded, SelectPage } from './';
+import { Fail, OrderActionTypes, OrdersLoaded, SelectPage, UpdateOrder } from './';
 
 const mapResult = map((result: PagedResult<OrderDto[]>) =>
   new OrdersLoaded({ orders: result.data, total: result.total }));
@@ -29,6 +29,15 @@ export class AppEffects {
     switchMap(page => this.ordersService
       .orders(page)
       .pipe(mapResult, handleError('Can\'t change page.')))
+  );
+
+  @Effect()
+  readonly updateOrder$ = this.actions$.pipe(
+    ofType<UpdateOrder>(OrderActionTypes.UPDATE),
+    map(action => action.payload),
+    switchMap(payload => this.ordersService
+      .update(payload.id, payload.order)
+      .pipe(handleError('Can\'t update order.')))
   );
 
   constructor(

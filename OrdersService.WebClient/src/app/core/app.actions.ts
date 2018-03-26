@@ -4,7 +4,6 @@ import { OrderDto, OrderModel } from '../domain';
 
 export enum OrderActionTypes {
   LOADED = '[Order] Orders Loaded',
-  ADD = '[Order] Add Order',
   UPDATE = '[Order] Update Order',
   SELECT_PAGE = '[Order] Select Page',
   FAIL = '[Order] Fail'
@@ -22,16 +21,10 @@ export class OrdersLoaded implements Action {
   constructor(public readonly payload: { orders: OrderDto[], total: number }) { }
 }
 
-export class AddOrder implements Action {
-  readonly type = OrderActionTypes.ADD;
-
-  constructor(public readonly payload: { order: OrderModel }) { }
-}
-
 export class UpdateOrder implements Action {
   readonly type = OrderActionTypes.UPDATE;
 
-  constructor(public readonly payload: { order: OrderDto }) { }
+  constructor(public readonly payload: { id: string, order: OrderModel }) { }
 }
 
 export class Fail implements Action {
@@ -42,7 +35,6 @@ export class Fail implements Action {
 
 export type OrderActions
   = OrdersLoaded
-  | AddOrder
   | UpdateOrder
   | SelectPage
   | Fail;

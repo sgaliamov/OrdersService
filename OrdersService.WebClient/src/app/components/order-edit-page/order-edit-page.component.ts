@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { OrdersService, OrderDto, OrderModel } from '../../domain';
+import { OrdersService, OrderDto } from '../../domain';
 import { Subscription } from 'rxjs/Subscription';
+import { AppState, UpdateOrder } from '../../core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-order-edit-page',
@@ -12,11 +14,13 @@ import { Subscription } from 'rxjs/Subscription';
 export class OrderEditPageComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  model: OrderModel;
+  model: OrderDto;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly ordersService: OrdersService
+    private readonly router: Router,
+    private readonly ordersService: OrdersService,
+    private readonly store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -33,7 +37,11 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.model);
+    this.store.dispatch(new UpdateOrder({
+      order: this.model,
+      id: this.model.id
+    }));
+    this.router.navigate(['/orders']);
   }
 
 }

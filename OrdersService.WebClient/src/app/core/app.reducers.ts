@@ -32,15 +32,21 @@ export function ordersReducer(state: OrdersState = initialState, action: OrderAc
 
     case OrderActionTypes.UPDATE:
       return ordersAdapter.upsertOne({
-        id: action.payload.order.id,
-        changes: action.payload.order
+        id: action.payload.id,
+        changes: {
+          ...action.payload.order,
+          id: action.payload.id
+        }
       }, {
           ...state,
-          selectedOrderId: action.payload.order.id
+          selectedOrderId: action.payload.id
         });
 
     case OrderActionTypes.SELECT_PAGE:
-      return { ...state, page: action.payload.page };
+      return {
+        ...state,
+        page: action.payload.page
+      };
 
     default:
       return state;

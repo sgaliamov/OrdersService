@@ -6,7 +6,9 @@ const ordersState = createFeatureSelector<OrdersState>('orders');
 
 export const getOrders = createSelector(ordersState, (state: OrdersState): PagedResult<OrderDto[]> => {
   return {
-    data: Object.keys(state.entities).map(id => state.entities[id]),
+    data: Object.keys(state.entities)
+      .map(id => state.entities[id])
+      .sort((a, b) => a.id.localeCompare(b.id)),
     total: state.total || 0
   };
 });

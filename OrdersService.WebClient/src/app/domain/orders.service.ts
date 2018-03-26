@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { OrderDto, PagedResult } from './';
+import { OrderDto, PagedResult, OrderModel } from './';
 
 @Injectable()
 export class OrdersService {
-  private API_PATH = 'http://localhost:54765/api/ordersQuery/';
+  private QUERY_PATH = 'http://localhost:54765/api/ordersQuery/';
+  private COMMAND_PATH = 'http://localhost:54765/api/ordersCommand/';
 
   constructor(private http: HttpClient) { }
 
   orders(page: number) {
-    return this.http.get<PagedResult<OrderDto[]>>(`${this.API_PATH}list/${page}`);
+    return this.http.get<PagedResult<OrderDto[]>>(`${this.QUERY_PATH}list/${page}`);
   }
 
   order(id: string) {
-    return this.http.get<OrderDto>(`${this.API_PATH}id/${id}`);
+    return this.http.get<OrderDto>(`${this.QUERY_PATH}id/${id}`);
+  }
+
+  update(id: string, order: OrderModel) {
+    return this.http.put<string>(`${this.COMMAND_PATH}${id}`, order);
   }
 
 }
