@@ -15,9 +15,10 @@
                      title="Price"
                      format="{0:c}"></kendo-grid-column>
   <kendo-grid-command-column width="66">
-    <ng-template kendoGridCellTemplate>
-      <button kendoGridEditCommand
-              class="k-primary">Edit</button>
+    <ng-template kendoGridCellTemplate
+                 let-dataItem>
+      <button kendoButton
+              [routerLink]="[dataItem.id]">Edit</button>
     </ng-template>
   </kendo-grid-command-column>
   <ng-template kendoGridDetailTemplate

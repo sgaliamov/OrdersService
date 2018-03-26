@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { OrdersPageComponent } from './components';
+import { OrdersPageComponent, OrderEditPageComponent } from './components';
 import { AboutPageComponent, NotFoundPageComponent } from './core';
 
 const routes: Routes = [
@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersPageComponent
+  },
+  {
+    path: 'orders/:id',
+    component: OrderEditPageComponent
   },
   {
     path: 'about',
