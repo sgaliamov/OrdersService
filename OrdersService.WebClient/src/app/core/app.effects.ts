@@ -4,9 +4,10 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/observable';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { OrdersService, PagedResult, OrderDto } from '../domain';
-import { Fail, OrderActionTypes, OrdersLoaded, SelectPage, UpdateOrder } from './';
+import { Fail, OrderActionTypes, OrdersLoaded, SelectPage, UpdateOrder, AppState } from './';
+import { Store } from '@ngrx/store';
 
 const mapResult = map((result: PagedResult<OrderDto[]>) =>
   new OrdersLoaded({ orders: result.data, total: result.total }));
@@ -37,10 +38,13 @@ export class AppEffects {
     map(action => action.payload),
     switchMap(payload => this.ordersService
       .update(payload.id, payload.order)
-      .pipe(handleError('Can\'t update order.')))
+      .pipe(
+        withLatestFrom(this.store$),
+        map(([id, state]) => new SelectPage({ page: state.orders.page }))))
   );
 
   constructor(
     private ordersService: OrdersService,
-    private actions$: Actions) { }
+    private actions$: Actions,
+    private store$: Store<AppState>) { }
 }

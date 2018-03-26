@@ -10,7 +10,8 @@ import { OrderDto, PagedResult } from '../../domain';
   styleUrls: ['./orders-list.component.scss']
 })
 export class OrdersListComponent {
-  skip = 0;
+  @Input()
+  page = 1;
 
   @Input()
   readonly data: PagedResult<OrderDto[]>;
@@ -22,7 +23,7 @@ export class OrdersListComponent {
   readonly pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
   dataStateChange(state: DataStateChangeEvent): void {
-    this.skip = state.skip;
-    this.pageChanged.emit(state.skip / this.pageSize);
+    this.page = (state.skip / this.pageSize) + 1;
+    this.pageChanged.emit(this.page);
   }
 }

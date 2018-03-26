@@ -12,3 +12,5 @@ export const getOrders = createSelector(ordersState, (state: OrdersState): Paged
     total: state.total || 0
   };
 });
+
+export const getPage = createSelector(ordersState, state => state.page);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, getOrders, SelectPage } from '../../core';
+import { AppState, getOrders, SelectPage, getPage } from '../../core';
 import { OrderDto, PagedResult } from '../../domain';
 import { Observable } from 'rxjs/Observable';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
@@ -12,6 +12,7 @@ import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 })
 export class OrdersPageComponent implements OnInit {
   private data: Observable<PagedResult<OrderDto[]>>;
+  private page: Observable<number>;
 
   constructor(
     private readonly store: Store<AppState>) {
@@ -19,6 +20,7 @@ export class OrdersPageComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.store.select(getOrders);
+    this.page = this.store.select(getPage);
   }
 
   pageChanged(page: number) {

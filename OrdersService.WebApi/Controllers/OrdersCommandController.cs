@@ -7,9 +7,9 @@ namespace OrdersService.WebApi.Controllers
     public class OrdersCommandController : Controller
     {
         [HttpPut("{id}")]
-        public ActionResult Put(string id, [FromBody] OrderInputModel data)
+        public OkObjectResult Put(string id, [FromBody] OrderInputModel data)
         {
-            return Ok(id);
+            return Ok(new { id });
         }
     }
 }
