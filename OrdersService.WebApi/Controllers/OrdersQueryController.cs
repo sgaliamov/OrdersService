@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Models;
 
@@ -9,27 +8,41 @@ namespace OrdersService.WebApi.Controllers
     public class OrdersQueryController : Controller
     {
         private const int PageSize = 5;
+        private static readonly OrderReadModel[] Data;
+
+        static OrdersQueryController()
+        {
+            Data = Enumerable.Range(0, 100)
+                .Select(GetOrderReadModel)
+                .ToArray();
+        }
 
         [HttpGet("list/{page:int?}")]
         public OkObjectResult GetByPage(int? page)
         {
-            var data = Enumerable.Range(0, 100)
+            var data = Data
                 .Skip(((page ?? 1) - 1) * PageSize)
                 .Take(PageSize)
-                .Select(GetOrderReadModel)
                 .ToArray();
 
             return Ok(new
             {
                 data,
-                total = 100
+                total = Data.Length
             });
         }
 
-        [HttpGet("id/{id:int}")]
-        public OrderReadModel GetById(int id)
+        [HttpGet("id/{id}")]
+        public ActionResult GetById(string id)
         {
-            return GetOrderReadModel(id);
+            var model = Data.FirstOrDefault(x => x.Id == id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(model);
         }
 
         private static OrderReadModel GetOrderReadModel(int x)

@@ -6,7 +6,6 @@
 - configure and use selectors
 - apply material
 - add one e2e test
-- config
 
 - swagger
 - logger
@@ -16,3 +15,6 @@
 - flex layout
 - authentication
 - docker
+- form guards
+- config
+- oData
