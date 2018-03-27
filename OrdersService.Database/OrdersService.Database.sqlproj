@@ -61,4 +61,7 @@
   <ItemGroup>
     <Build Include="Orders.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="OrdersService.Database.publish.xml" />
+  </ItemGroup>
 </Project>
