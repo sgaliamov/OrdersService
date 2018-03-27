@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using OrdersService.DataAccess.Models;
 
 namespace OrdersService.WebApi
 {
@@ -25,8 +21,11 @@ namespace OrdersService.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            services.AddCors(options => options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(options => options.AddPolicy("AllowAll",
+                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
             services.AddMvc();
+            services.AddDbContext<OrdersServiceContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

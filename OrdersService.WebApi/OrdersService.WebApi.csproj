@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OrdersService.BusinessLogic.Contracts\OrdersService.BusinessLogic.Contracts.csproj" />
     <ProjectReference Include="..\OrdersService.BusinessLogic\OrdersService.BusinessLogic.csproj" />
+    <ProjectReference Include="..\OrdersService.DataAccess\OrdersService.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
