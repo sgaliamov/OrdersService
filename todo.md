@@ -31,3 +31,4 @@
 - dapper
 - db tests
 - separate db context for commands
+- global exception handler
