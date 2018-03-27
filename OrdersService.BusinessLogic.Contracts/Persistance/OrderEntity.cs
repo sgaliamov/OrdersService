@@ -1,4 +1,4 @@
-﻿namespace OrdersService.BusinessLogic.Contracts
+﻿namespace OrdersService.BusinessLogic.Contracts.Persistance
 {
     public class OrderEntity
     {

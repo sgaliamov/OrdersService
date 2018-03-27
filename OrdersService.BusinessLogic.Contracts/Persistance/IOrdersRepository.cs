@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace OrdersService.BusinessLogic.Contracts
+namespace OrdersService.BusinessLogic.Contracts.Persistance
 {
     public interface IOrdersRepository
     {

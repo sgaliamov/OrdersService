@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using OrdersService.BusinessLogic.Contracts;
-using OrdersService.WebApi.Managers;
+using OrdersService.BusinessLogic.Contracts.Persistance;
+using OrdersService.WebApi.Models;
 
-namespace OrdersService.WebApi.Models
+namespace OrdersService.WebApi.Managers
 {
     public class OrdersPresenter : IOrdersPresenter
     {

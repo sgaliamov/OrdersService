@@ -1,6 +1,4 @@
-﻿using OrdersService.BusinessLogic.Commands;
-
-namespace OrdersService.BusinessLogic.CommandHandlers
+﻿namespace OrdersService.BusinessLogic.Contracts.Commands
 {
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
