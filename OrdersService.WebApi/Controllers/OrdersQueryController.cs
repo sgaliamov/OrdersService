@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Managers;
-using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Controllers
 {
