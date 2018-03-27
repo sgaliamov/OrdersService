@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using OrdersService.BusinessLogic.Contracts;
+using OrdersService.WebApi.Managers;
 
 namespace OrdersService.WebApi.Models
 {
@@ -15,9 +17,9 @@ namespace OrdersService.WebApi.Models
             _mapper = mapper;
         }
 
-        public Paged<OrderReadModel[]> GetByPage(int page)
+        public async Task<Paged<OrderReadModel[]>> GetByPageAsync(int page)
         {
-            var data = _ordersRepository.GetByPage(page);
+            var data = await _ordersRepository.GetByPageAsync(page);
 
             var models = data.Data.Select(x => _mapper.Map<OrderReadModel>(x)).ToArray();
 
@@ -28,9 +30,9 @@ namespace OrdersService.WebApi.Models
             };
         }
 
-        public OrderReadModel GetById(string id)
+        public async Task<OrderReadModel> GetByIdAsync(string id)
         {
-            var entity = _ordersRepository.GetById(id);
+            var entity = await _ordersRepository.GetByIdAsync(id);
 
             return _mapper.Map<OrderReadModel>(entity);
         }

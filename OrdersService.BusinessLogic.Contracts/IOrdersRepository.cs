@@ -1,8 +1,11 @@
+using System.Threading.Tasks;
+
 namespace OrdersService.BusinessLogic.Contracts
 {
     public interface IOrdersRepository
     {
-        OrderEntity GetById(string id);
-        Paged<OrderEntity[]> GetByPage(int page);
+        Task<OrderEntity> GetByIdAsync(string id);
+        Task<Paged<OrderEntity[]>> GetByPageAsync(int page);
+        Task AddOrUpdateAsync(OrderEntity entity);
     }
 }

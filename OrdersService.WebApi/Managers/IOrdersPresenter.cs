@@ -1,10 +1,12 @@
+using System.Threading.Tasks;
 using OrdersService.BusinessLogic.Contracts;
+using OrdersService.WebApi.Models;
 
-namespace OrdersService.WebApi.Models
+namespace OrdersService.WebApi.Managers
 {
     public interface IOrdersPresenter
     {
-        Paged<OrderReadModel[]> GetByPage(int page);
-        OrderReadModel GetById(string id);
+        Task<Paged<OrderReadModel[]>> GetByPageAsync(int page);
+        Task<OrderReadModel> GetByIdAsync(string id);
     }
 }

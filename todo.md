@@ -9,10 +9,12 @@
 - authentication
 - docker
 - form guards
-- config
+- config, page size
 - oData
 - versioning on data
 - swagger
 - aggregate roots
 - query handler for cqrs
 - dapper
+- db tests
+- separate db context for commands

@@ -17,6 +17,7 @@ namespace OrdersService.WebApi.Managers
         {
             var command = _mapper.Map<UpdateOrderCommand>(model);
             command.Id = id;
+
             return command;
         }
 

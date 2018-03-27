@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
@@ -31,14 +32,14 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             var entity = _fixture.Create<OrderEntity>();
             var model = _fixture.Create<OrderReadModel>();
 
-            _ordersRepository.Setup(x => x.GetById(id)).Returns(entity);
+            _ordersRepository.Setup(x => x.GetByIdAsync(id)).Returns(Task.FromResult(entity));
             _mapper.Setup(x => x.Map<OrderReadModel>(entity)).Returns(model);
 
             // act
-            var actual = _target.GetById(id);
+            var actual = _target.GetByIdAsync(id);
 
             // assert
-            _ordersRepository.Verify(x => x.GetById(id), Times.Once);
+            _ordersRepository.Verify(x => x.GetByIdAsync(id), Times.Once);
             _mapper.Verify(x => x.Map<OrderReadModel>(entity), Times.Once);
             actual.Should().BeEquivalentTo(model);
         }

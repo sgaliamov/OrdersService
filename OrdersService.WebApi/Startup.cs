@@ -21,9 +21,12 @@ namespace OrdersService.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
+
             services.AddCors(options => options.AddPolicy("AllowAll",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
             services.AddMvc();
+
             services.AddDbContext<OrdersServiceContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
         }
