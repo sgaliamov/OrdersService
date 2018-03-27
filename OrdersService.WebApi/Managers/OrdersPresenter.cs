@@ -21,7 +21,7 @@ namespace OrdersService.WebApi.Managers
         {
             var data = await _ordersRepository.GetByPageAsync(page);
 
-            var models = data.Data.Select(x => _mapper.Map<OrderReadModel>(x)).ToArray();
+            var models = _mapper.Map<OrderReadModel[]>(data.Data);
 
             return new Paged<OrderReadModel[]>
             {
