@@ -3,7 +3,6 @@ using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
 using Moq;
-using OrdersService.BusinessLogic.Contracts;
 using OrdersService.BusinessLogic.Contracts.Persistance;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;

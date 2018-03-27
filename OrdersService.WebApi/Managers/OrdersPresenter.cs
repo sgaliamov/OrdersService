@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using OrdersService.BusinessLogic.Contracts;
 using OrdersService.BusinessLogic.Contracts.Persistance;
 using OrdersService.WebApi.Models;
 

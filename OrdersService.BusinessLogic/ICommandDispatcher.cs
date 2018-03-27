@@ -1,6 +1,4 @@
-﻿using OrdersService.BusinessLogic.Commands;
-using OrdersService.BusinessLogic.Contracts;
-using OrdersService.BusinessLogic.Contracts.Commands;
+﻿using OrdersService.BusinessLogic.Contracts.Commands;
 
 namespace OrdersService.BusinessLogic
 {

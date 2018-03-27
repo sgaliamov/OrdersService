@@ -1,6 +1,7 @@
 # todo
 
 - debug
+- test data generation
 - add one e2e test
 - run tests
 
