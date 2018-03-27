@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using OrdersService.BusinessLogic;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
@@ -20,21 +21,21 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(string id, [FromBody] OrderInputModel data)
+        public async Task<ActionResult> Update(string id, [FromBody] OrderInputModel data)
         {
             var command = _commandBuilder.BuildUpdateOrderCommand(id, data);
 
-            _commandDispatcher.ExecuteAsync(command);
+            await _commandDispatcher.ExecuteAsync(command);
 
             return Ok(new {id});
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] OrderInputModel data)
+        public async Task<ActionResult> Create([FromBody] OrderInputModel data)
         {
             var command = _commandBuilder.BuildAddOrderCommand(data);
 
-            _commandDispatcher.ExecuteAsync(command);
+            await _commandDispatcher.ExecuteAsync(command);
 
             return Ok();
         }

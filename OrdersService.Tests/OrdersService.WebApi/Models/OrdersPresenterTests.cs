@@ -27,7 +27,7 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
         private readonly Fixture _fixture;
 
         [Fact]
-        public void Test_GetById()
+        public async Task Test_GetById()
         {
             var id = _fixture.Create<string>();
             var entity = _fixture.Create<OrderEntity>();
@@ -37,7 +37,7 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             _mapper.Setup(x => x.Map<OrderReadModel>(entity)).Returns(model);
 
             // act
-            var actual = _target.GetByIdAsync(id);
+            var actual = await _target.GetByIdAsync(id);
 
             // assert
             _ordersRepository.Verify(x => x.GetByIdAsync(id), Times.Once);

@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OrdersService.BusinessLogic;
+using OrdersService.BusinessLogic.CommandHandlers;
+using OrdersService.BusinessLogic.Commands;
+using OrdersService.BusinessLogic.Contracts.Commands;
 using OrdersService.BusinessLogic.Contracts.Persistance;
 using OrdersService.DataAccess;
 using OrdersService.DataAccess.Models;
@@ -34,34 +38,46 @@ namespace OrdersService.WebApi
                 options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
 
             services.AddScoped<IOrdersRepository, OrdersRepository>();
-
             services.AddScoped<IOrdersPresenter, OrdersPresenter>();
+            services.AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>();
+            services.AddScoped<ICommandHandler<AddOrderCommand>, AddOrderCommandHandler>();
+            services.AddScoped<ICommandBuilder, CommandBuilder>();
+
+            services.AddSingleton<ICommandHandlerFactory, CommandHandlerFactory>();
+            services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
         }
 
         private static void ConfigureInfrustructure(IServiceCollection services)
         {
+           
+
             services.AddAutoMapper(config =>
             {
                 config.CreateMap<OrderEntity, OrderReadModel>()
                     .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
+
+                config.CreateMap<OrderInputModel, UpdateOrderCommand>()
+                    .IgnoreAllPropertiesWithAnInaccessibleSetter();
             });
 
             services.AddCors(options => options.AddPolicy("AllowAll",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc();
+
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            app.UseExceptionHandler();
+            //}
 
             app.UseCors("AllowAll");
             app.UseMvc();
