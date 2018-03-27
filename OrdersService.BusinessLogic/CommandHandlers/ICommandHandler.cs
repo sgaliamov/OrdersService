@@ -2,7 +2,8 @@
 
 namespace OrdersService.BusinessLogic.CommandHandlers
 {
-    public interface ICommandHandler<TCommand> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
+        void Execute(TCommand command);
     }
 }
