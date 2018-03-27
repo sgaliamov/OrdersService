@@ -1,7 +1,9 @@
-﻿namespace OrdersService.BusinessLogic.Contracts.Commands
+﻿using System.Threading.Tasks;
+
+namespace OrdersService.BusinessLogic.Contracts.Commands
 {
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
-        void Execute(TCommand command);
+        Task ExecuteAsync(TCommand command);
     }
 }

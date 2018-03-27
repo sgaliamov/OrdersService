@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
 using OrdersService.BusinessLogic.Contracts.Persistance;
@@ -22,11 +23,11 @@ namespace OrdersService.BusinessLogic.CommandHandlers
             _logger = logger;
         }
 
-        public void Execute(AddOrderCommand command)
+        public async Task ExecuteAsync(AddOrderCommand command)
         {
             _logger.Information("Processing add command: {@command}", command);
 
-            _ordersRepository.AddOrUpdateAsync(_mapper.Map<OrderEntity>(command));
+            await _ordersRepository.AddOrUpdateAsync(_mapper.Map<OrderEntity>(command));
 
             _logger.Information("Add command finished");
         }

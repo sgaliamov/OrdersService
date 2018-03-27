@@ -1,4 +1,5 @@
-﻿using OrdersService.BusinessLogic.Contracts.Commands;
+﻿using System.Threading.Tasks;
+using OrdersService.BusinessLogic.Contracts.Commands;
 
 namespace OrdersService.BusinessLogic
 {
@@ -11,11 +12,11 @@ namespace OrdersService.BusinessLogic
             _factory = factory;
         }
 
-        public void Execute<T>(T command) where T : ICommand
+        public async Task ExecuteAsync<T>(T command) where T : ICommand
         {
             var handler = _factory.Resolve<T>();
 
-            handler.Execute(command);
+            await handler.ExecuteAsync(command);
         }
     }
 }

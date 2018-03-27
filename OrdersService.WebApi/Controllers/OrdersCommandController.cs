@@ -24,7 +24,7 @@ namespace OrdersService.WebApi.Controllers
         {
             var command = _commandBuilder.BuildUpdateOrderCommand(id, data);
 
-            _commandDispatcher.Execute(command);
+            _commandDispatcher.ExecuteAsync(command);
 
             return Ok(new {id});
         }
@@ -34,7 +34,7 @@ namespace OrdersService.WebApi.Controllers
         {
             var command = _commandBuilder.BuildAddOrderCommand(data);
 
-            _commandDispatcher.Execute(command);
+            _commandDispatcher.ExecuteAsync(command);
 
             return Ok();
         }

@@ -1,9 +1,10 @@
-﻿using OrdersService.BusinessLogic.Contracts.Commands;
+﻿using System.Threading.Tasks;
+using OrdersService.BusinessLogic.Contracts.Commands;
 
 namespace OrdersService.BusinessLogic
 {
     public interface ICommandDispatcher
     {
-        void Execute<T>(T command) where T : ICommand;
+        Task ExecuteAsync<T>(T command) where T : ICommand;
     }
 }

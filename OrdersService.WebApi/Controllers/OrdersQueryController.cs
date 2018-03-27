@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Managers;
 
 namespace OrdersService.WebApi.Controllers
@@ -14,17 +15,17 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpGet("list/{page:int?}")]
-        public OkObjectResult GetByPage(int? page)
+        public async Task<OkObjectResult> GetByPage(int? page)
         {
-            var result = _ordersPresenter.GetByPageAsync(page ?? 1);
+            var result = await _ordersPresenter.GetByPageAsync(page ?? 1);
 
             return Ok(result);
         }
 
         [HttpGet("id/{id}")]
-        public ActionResult GetById(string id)
+        public async Task<ActionResult> GetById(string id)
         {
-            var model = _ordersPresenter.GetByIdAsync(id);
+            var model = await _ordersPresenter.GetByIdAsync(id);
             if (model == null)
             {
                 return NotFound();
