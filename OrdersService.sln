@@ -3,19 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService.WebApi", "OrdersService.WebApi\OrdersService.WebApi.csproj", "{5EE0E0F7-E9C9-45EB-861B-266BCB5CF602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.WebApi", "OrdersService.WebApi\OrdersService.WebApi.csproj", "{5EE0E0F7-E9C9-45EB-861B-266BCB5CF602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService.BusinessLogic", "OrdersService.BusinessLogic\OrdersService.BusinessLogic.csproj", "{0F6BEFC2-2683-4E54-9948-CB7B52C2327B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.BusinessLogic", "OrdersService.BusinessLogic\OrdersService.BusinessLogic.csproj", "{0F6BEFC2-2683-4E54-9948-CB7B52C2327B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService.DataAccess", "OrdersService.DataAccess\OrdersService.DataAccess.csproj", "{A4A1ECDE-61F8-48E7-9388-DE66745D28FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.DataAccess", "OrdersService.DataAccess\OrdersService.DataAccess.csproj", "{A4A1ECDE-61F8-48E7-9388-DE66745D28FE}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OrdersService.Database", "OrdersService.Database\OrdersService.Database.sqlproj", "{986EEAF9-8790-474C-BFA8-4053C7CA5991}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService.BusinessLogic.Contracts", "OrdersService.BusinessLogic.Contracts\OrdersService.BusinessLogic.Contracts.csproj", "{84BBCC54-D30A-4D50-8D1C-1FD4364363E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.BusinessLogic.Contracts", "OrdersService.BusinessLogic.Contracts\OrdersService.BusinessLogic.Contracts.csproj", "{84BBCC54-D30A-4D50-8D1C-1FD4364363E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business logic layer", "Business logic layer", "{425742DA-2C2F-4400-9EAD-3EF41799E64F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data acess layer", "Data acess layer", "{1B6B6F44-6488-4F70-9BDF-3FA6CD511848}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1356F918-3E3F-4A17-AFC5-7A815D3E7D14}"
+	ProjectSection(SolutionItems) = preProject
+		todo.md = todo.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

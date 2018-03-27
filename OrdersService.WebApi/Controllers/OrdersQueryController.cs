@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Controllers
@@ -7,35 +6,25 @@ namespace OrdersService.WebApi.Controllers
     [Route("api/[controller]")]
     public class OrdersQueryController : Controller
     {
-        private const int PageSize = 5;
-        private static readonly OrderReadModel[] Data;
+        private readonly IOrdersPresenter _ordersPresenter;
 
-        static OrdersQueryController()
+        public OrdersQueryController(IOrdersPresenter ordersPresenter)
         {
-            Data = Enumerable.Range(0, 100)
-                .Select(GetOrderReadModel)
-                .ToArray();
+            _ordersPresenter = ordersPresenter;
         }
 
         [HttpGet("list/{page:int?}")]
         public OkObjectResult GetByPage(int? page)
         {
-            var data = Data
-                .Skip(((page ?? 1) - 1) * PageSize)
-                .Take(PageSize)
-                .ToArray();
+            var result = _ordersPresenter.GetByPage(page ?? 1);
 
-            return Ok(new
-            {
-                data,
-                total = Data.Length
-            });
+            return Ok(result);
         }
 
         [HttpGet("id/{id}")]
         public ActionResult GetById(string id)
         {
-            var model = Data.FirstOrDefault(x => x.Id == id);
+            var model = _ordersPresenter.GetById(id);
 
             if (model == null)
             {
@@ -43,17 +32,6 @@ namespace OrdersService.WebApi.Controllers
             }
 
             return Ok(model);
-        }
-
-        private static OrderReadModel GetOrderReadModel(int x)
-        {
-            return new OrderReadModel
-            {
-                Address = "Address_" + x,
-                CustomerName = "CustomerName_" + x,
-                Price = x * 1000,
-                Id = "ID_" + x
-            };
         }
     }
 }
