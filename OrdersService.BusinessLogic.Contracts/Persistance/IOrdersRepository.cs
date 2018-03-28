@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using OrdersService.BusinessLogic.Contracts.DomainModels;
 
 namespace OrdersService.BusinessLogic.Contracts.Persistance
 {

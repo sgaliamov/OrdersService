@@ -8,6 +8,7 @@ using OrdersService.BusinessLogic;
 using OrdersService.BusinessLogic.CommandHandlers;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
+using OrdersService.BusinessLogic.Contracts.DomainModels;
 using OrdersService.BusinessLogic.Contracts.Persistance;
 using OrdersService.DataAccess;
 using OrdersService.DataAccess.Models;

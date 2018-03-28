@@ -1,4 +1,4 @@
-﻿namespace OrdersService.BusinessLogic.Contracts.Persistance
+﻿namespace OrdersService.BusinessLogic.Contracts.DomainModels
 {
     public class OrderEntity
     {
