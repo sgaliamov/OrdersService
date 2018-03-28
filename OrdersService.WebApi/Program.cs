@@ -23,6 +23,7 @@ namespace OrdersService.WebApi
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseDefaultServiceProvider(options => options.ValidateScopes = false)
                 .UseSerilog()
                 .Build();
         }

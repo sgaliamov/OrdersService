@@ -61,6 +61,9 @@ namespace OrdersService.WebApi
 
                 config.CreateMap<UpdateOrderCommand, OrderEntity>()
                     .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
+
+                config.CreateMap<OrderEntity, Orders>()
+                    .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
             });
 
             services.AddCors(options => options.AddPolicy("AllowAll",
