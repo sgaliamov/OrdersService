@@ -1,9 +1,3 @@
-# todo
-
-- debug
-- test data generation
-- add one e2e test
-
 ## to mention
 
 - top down development
@@ -32,3 +26,4 @@
 - separate db context for commands
 - global exception handler
 - wrapping 3rd party
+- e2e test
