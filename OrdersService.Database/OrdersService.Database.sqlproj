@@ -63,5 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="OrdersService.Database.publish.xml" />
+    <PostDeploy Include="Init.sql" />
   </ItemGroup>
 </Project>
