@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using OrdersService.BusinessLogic.Contracts.Commands;
 
 namespace OrdersService.WebApi.Managers
@@ -14,7 +15,10 @@ namespace OrdersService.WebApi.Managers
 
         public ICommandHandler<TCommand> Resolve<TCommand>() where TCommand : ICommand
         {
-            return (ICommandHandler<TCommand>) _serviceProvider.GetService(typeof(ICommandHandler<TCommand>));
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                return (ICommandHandler<TCommand>) scope.ServiceProvider.GetService(typeof(ICommandHandler<TCommand>));
+            }
         }
     }
 }

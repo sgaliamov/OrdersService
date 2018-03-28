@@ -31,3 +31,4 @@
 - db tests
 - separate db context for commands
 - global exception handler
+- wrapping 3rd party

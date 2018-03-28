@@ -13,6 +13,7 @@ using OrdersService.DataAccess;
 using OrdersService.DataAccess.Models;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
+using Serilog;
 
 namespace OrdersService.WebApi
 {
@@ -42,14 +43,13 @@ namespace OrdersService.WebApi
             services.AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>();
             services.AddScoped<ICommandHandler<AddOrderCommand>, AddOrderCommandHandler>();
             services.AddScoped<ICommandBuilder, CommandBuilder>();
-
-            services.AddSingleton<ICommandHandlerFactory, CommandHandlerFactory>();
-            services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
+            services.AddScoped<ICommandHandlerFactory, CommandHandlerFactory>();
+            services.AddScoped<ICommandDispatcher, CommandDispatcher>();
         }
 
         private static void ConfigureInfrustructure(IServiceCollection services)
         {
-           
+            services.AddSingleton(Log.Logger);
 
             services.AddAutoMapper(config =>
             {
@@ -58,27 +58,20 @@ namespace OrdersService.WebApi
 
                 config.CreateMap<OrderInputModel, UpdateOrderCommand>()
                     .IgnoreAllPropertiesWithAnInaccessibleSetter();
+
+                config.CreateMap<UpdateOrderCommand, OrderEntity>()
+                    .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
             });
 
             services.AddCors(options => options.AddPolicy("AllowAll",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc();
-
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
             app.UseExceptionHandler();
-            //}
-
             app.UseCors("AllowAll");
             app.UseMvc();
         }
