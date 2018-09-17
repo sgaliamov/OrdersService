@@ -17,12 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business logic layer", "Bus
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data acess layer", "Data acess layer", "{1B6B6F44-6488-4F70-9BDF-3FA6CD511848}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1356F918-3E3F-4A17-AFC5-7A815D3E7D14}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ",Solution Items", ",Solution Items", "{1356F918-3E3F-4A17-AFC5-7A815D3E7D14}"
 	ProjectSection(SolutionItems) = preProject
-		todo.md = todo.md
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService.Tests", "OrdersService.Tests\OrdersService.Tests.csproj", "{BDAF1A6C-78FE-4B78-BDB7-538D01794B23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.Tests", "OrdersService.Tests\OrdersService.Tests.csproj", "{BDAF1A6C-78FE-4B78-BDB7-538D01794B23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
