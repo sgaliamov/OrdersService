@@ -13,14 +13,14 @@ namespace OrdersService.DataAccess.Models
         {
             modelBuilder.Entity<Orders>(entity =>
             {
-                entity.HasIndex(e => e.DisplayId)
+                entity.HasIndex(e => e.OrderId)
                       .HasName("IX_DisplayId");
 
                 entity.Property(e => e.CreationTimestamp).HasDefaultValueSql("(GETUTCDATE())");
 
                 entity.Property(e => e.CustomerName).IsRequired();
 
-                entity.Property(e => e.DisplayId)
+                entity.Property(e => e.OrderId)
                       .IsRequired()
                       .HasMaxLength(50)
                       .IsUnicode(false);

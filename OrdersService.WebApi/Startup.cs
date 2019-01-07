@@ -66,13 +66,13 @@ namespace OrdersService.WebApi
             services.AddAutoMapper(config =>
             {
                 config.CreateMap<OrderEntity, OrderReadModel>()
-                      .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
+                      .ForMember(x => x.Id, o => o.MapFrom(x => x.OrderId));
 
                 config.CreateMap<OrderInputModel, UpdateOrderCommand>()
                       .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
                 config.CreateMap<UpdateOrderCommand, OrderEntity>()
-                      .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
+                      .ForMember(x => x.OrderId, o => o.MapFrom(x => x.Id));
 
                 config.CreateMap<OrderEntity, Orders>()
                       .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
