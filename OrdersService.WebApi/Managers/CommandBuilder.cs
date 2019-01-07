@@ -16,16 +16,14 @@ namespace OrdersService.WebApi.Managers
         public UpdateOrderCommand BuildUpdateOrderCommand(string id, OrderInputModel model)
         {
             var command = _mapper.Map<UpdateOrderCommand>(model);
-            command.Id = id;
+            command.OrderId = id;
 
             return command;
         }
 
         public AddOrderCommand BuildAddOrderCommand(OrderInputModel model)
         {
-            var command = _mapper.Map<AddOrderCommand>(model);
-
-            return command;
+            return _mapper.Map<AddOrderCommand>(model);
         }
     }
 }

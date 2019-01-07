@@ -4,7 +4,7 @@ namespace OrdersService.DataAccess.Entities
 {
     public sealed class OrdersServiceContext : DbContext
     {
-        public OrdersServiceContext(DbContextOptions options) : base(options) { }
+        public OrdersServiceContext(DbContextOptions<OrdersServiceContext> options) : base(options) { }
 
         public DbSet<Orders> Orders { get; set; }
 

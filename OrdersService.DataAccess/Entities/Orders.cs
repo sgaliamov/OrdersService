@@ -9,7 +9,7 @@ namespace OrdersService.DataAccess.Entities
         public DateTimeOffset CreationTimestamp { get; set; }
         public string CustomerName { get; set; }
         public long Id { get; set; }
-        public int Number { get; set; }
+        public int? Number { get; set; }
         public string OrderId { get; set; }
         public string Phone { get; set; }
         public string PostCode { get; set; }
