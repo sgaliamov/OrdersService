@@ -9,7 +9,7 @@ using OrdersService.BusinessLogic.CommandHandlers;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
-using OrdersService.BusinessLogic.Contracts.Persistance;
+using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.DataAccess;
 using OrdersService.DataAccess.Models;
 using OrdersService.WebApi.Managers;
@@ -18,7 +18,7 @@ using Serilog;
 
 namespace OrdersService.WebApi
 {
-    public class Startup
+    public sealed class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -29,7 +29,7 @@ namespace OrdersService.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureInfrustructure(services);
+            ConfigureInfrastructure(services);
 
             ConfigureDependencies(services);
         }
@@ -48,7 +48,7 @@ namespace OrdersService.WebApi
             services.AddScoped<ICommandDispatcher, CommandDispatcher>();
         }
 
-        private static void ConfigureInfrustructure(IServiceCollection services)
+        private static void ConfigureInfrastructure(IServiceCollection services)
         {
             services.AddSingleton(Log.Logger);
 

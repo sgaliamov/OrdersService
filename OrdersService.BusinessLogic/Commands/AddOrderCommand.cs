@@ -2,7 +2,7 @@
 
 namespace OrdersService.BusinessLogic.Commands
 {
-    public class AddOrderCommand : ICommand
+    public sealed class AddOrderCommand : ICommand
     {
         public string Id { get; set; }
         public double Price { get; set; }

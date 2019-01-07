@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
-using OrdersService.BusinessLogic.Contracts.Persistance;
 using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Managers

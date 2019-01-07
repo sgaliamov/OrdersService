@@ -2,14 +2,14 @@
 
 namespace OrdersService.DataAccess.Models
 {
-    public class OrdersServiceContext : DbContext
+    public sealed class OrdersServiceContext : DbContext
     {
         public OrdersServiceContext(DbContextOptions options)
             : base(options)
         {
         }
 
-        public virtual DbSet<Orders> Orders { get; set; }
+        public DbSet<Orders> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace OrdersService.DataAccess.Models
                 entity.HasIndex(e => e.DisplayId)
                     .HasName("IX_DisplayId");
 
-                entity.Property(e => e.CreationTimestamp).HasDefaultValueSql("(getutcdate())");
+                entity.Property(e => e.CreationTimestamp).HasDefaultValueSql("(GETUTCDATE())");
 
                 entity.Property(e => e.CustomerName).IsRequired();
 

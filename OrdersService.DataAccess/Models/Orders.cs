@@ -2,7 +2,7 @@
 
 namespace OrdersService.DataAccess.Models
 {
-    public class Orders
+    public sealed class Orders
     {
         public long Id { get; set; }
         public DateTimeOffset CreationTimestamp { get; set; }

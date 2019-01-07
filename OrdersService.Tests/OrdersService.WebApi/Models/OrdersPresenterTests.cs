@@ -4,14 +4,14 @@ using AutoMapper;
 using FluentAssertions;
 using Moq;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
-using OrdersService.BusinessLogic.Contracts.Persistance;
+using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Xunit;
 
 namespace OrdersService.Tests.OrdersService.WebApi.Models
 {
-    public class OrdersPresenterTests
+    public sealed class OrdersPresenterTests
     {
         public OrdersPresenterTests()
         {
@@ -38,7 +38,7 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             _mapper.Setup(x => x.Map<OrderReadModel>(entity)).Returns(model);
 
             // act
-            var actual = await _target.GetByIdAsync(id);
+            var actual = await _target.GetByIdAsync(id).ConfigureAwait(false);
 
             // assert
             _ordersRepository.Verify(x => x.GetByIdAsync(id), Times.Once);

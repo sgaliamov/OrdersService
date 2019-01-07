@@ -1,6 +1,6 @@
 ﻿namespace OrdersService.WebApi.Models
 {
-    public class OrderReadModel
+    public sealed class OrderReadModel
     {
         public string Id { get; set; }
         public double Price { get; set; }

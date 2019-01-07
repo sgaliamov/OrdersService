@@ -7,7 +7,7 @@ using OrdersService.WebApi.Models;
 namespace OrdersService.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class OrdersCommandController : Controller
+    public sealed class OrdersCommandController : Controller
     {
         private readonly ICommandBuilder _commandBuilder;
         private readonly ICommandDispatcher _commandDispatcher;
@@ -25,7 +25,7 @@ namespace OrdersService.WebApi.Controllers
         {
             var command = _commandBuilder.BuildUpdateOrderCommand(id, data);
 
-            await _commandDispatcher.ExecuteAsync(command);
+            await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
 
             return Ok(new {id});
         }
@@ -35,7 +35,7 @@ namespace OrdersService.WebApi.Controllers
         {
             var command = _commandBuilder.BuildAddOrderCommand(data);
 
-            await _commandDispatcher.ExecuteAsync(command);
+            await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
 
             return Ok();
         }

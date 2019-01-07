@@ -3,12 +3,12 @@ using AutoMapper;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
-using OrdersService.BusinessLogic.Contracts.Persistance;
+using OrdersService.BusinessLogic.Contracts.Persistence;
 using Serilog;
 
 namespace OrdersService.BusinessLogic.CommandHandlers
 {
-    public class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand>
+    public sealed class UpdateOrderCommandHandler : ICommandHandler<UpdateOrderCommand>
     {
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ namespace OrdersService.BusinessLogic.CommandHandlers
         {
             _logger.Information("Processing Update command: {@command}", command);
 
-            await _ordersRepository.AddOrUpdateAsync(_mapper.Map<OrderEntity>(command));
+            await _ordersRepository.AddOrUpdateAsync(_mapper.Map<OrderEntity>(command)).ConfigureAwait(false);
 
             _logger.Information("Update command finished");
         }

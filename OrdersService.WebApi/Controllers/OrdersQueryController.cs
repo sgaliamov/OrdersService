@@ -5,7 +5,7 @@ using OrdersService.WebApi.Managers;
 namespace OrdersService.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class OrdersQueryController : Controller
+    public sealed class OrdersQueryController : Controller
     {
         private readonly IOrdersPresenter _ordersPresenter;
 
@@ -17,7 +17,7 @@ namespace OrdersService.WebApi.Controllers
         [HttpGet("list/{page:int?}")]
         public async Task<OkObjectResult> GetByPage(int? page)
         {
-            var result = await _ordersPresenter.GetByPageAsync(page ?? 1);
+            var result = await _ordersPresenter.GetByPageAsync(page ?? 1).ConfigureAwait(false);
 
             return Ok(result);
         }
@@ -25,7 +25,7 @@ namespace OrdersService.WebApi.Controllers
         [HttpGet("id/{id}")]
         public async Task<ActionResult> GetById(string id)
         {
-            var model = await _ordersPresenter.GetByIdAsync(id);
+            var model = await _ordersPresenter.GetByIdAsync(id).ConfigureAwait(false);
             if (model == null)
             {
                 return NotFound();

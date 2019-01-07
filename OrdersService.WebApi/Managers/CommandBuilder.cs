@@ -4,7 +4,7 @@ using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Managers
 {
-    public class CommandBuilder : ICommandBuilder
+    public sealed class CommandBuilder : ICommandBuilder
     {
         private readonly IMapper _mapper;
 
