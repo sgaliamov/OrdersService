@@ -17,5 +17,5 @@
 )
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_DisplayId] ON [dbo].[Orders]([OrderId] ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [IX_OrderId] ON [dbo].[Orders]([OrderId] ASC);
 GO

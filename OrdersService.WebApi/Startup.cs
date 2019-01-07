@@ -12,7 +12,7 @@ using OrdersService.BusinessLogic.Contracts.Commands;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
 using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.DataAccess;
-using OrdersService.DataAccess.Models;
+using OrdersService.DataAccess.Entities;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Serilog;
@@ -63,25 +63,27 @@ namespace OrdersService.WebApi
         {
             services.AddSingleton(Log.Logger);
 
-            services.AddAutoMapper(config =>
-            {
-                config.CreateMap<OrderEntity, OrderReadModel>()
-                      .ForMember(x => x.Id, o => o.MapFrom(x => x.OrderId));
-
-                config.CreateMap<OrderInputModel, UpdateOrderCommand>()
-                      .IgnoreAllPropertiesWithAnInaccessibleSetter();
-
-                config.CreateMap<UpdateOrderCommand, OrderEntity>()
-                      .ForMember(x => x.OrderId, o => o.MapFrom(x => x.Id));
-
-                config.CreateMap<OrderEntity, Orders>()
-                      .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
-            });
+            services.AddAutoMapper(ConfigureMapper);
 
             services.AddCors(options => options.AddPolicy("AllowAll",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        }
+
+        private static void ConfigureMapper(IMapperConfigurationExpression config)
+        {
+            config.CreateMap<OrderEntity, OrderReadModel>()
+                  .ForMember(x => x.Id, o => o.MapFrom(x => x.OrderId));
+
+            config.CreateMap<OrderInputModel, UpdateOrderCommand>()
+                  .IgnoreAllPropertiesWithAnInaccessibleSetter();
+
+            config.CreateMap<UpdateOrderCommand, OrderEntity>()
+                  .ForMember(x => x.OrderId, o => o.MapFrom(x => x.Id));
+
+            config.CreateMap<OrderEntity, Orders>()
+                  .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
         }
     }
 }

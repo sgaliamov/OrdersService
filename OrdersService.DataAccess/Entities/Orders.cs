@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrdersService.DataAccess.Models
+namespace OrdersService.DataAccess.Entities
 {
     public sealed class Orders
     {

@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
 using OrdersService.BusinessLogic.Contracts.Persistence;
-using OrdersService.DataAccess.Models;
+using OrdersService.DataAccess.Entities;
 
 namespace OrdersService.DataAccess
 {
