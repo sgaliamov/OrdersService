@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { AppState, getOrders, SelectPage, getPage } from '../../core';
 import { OrderDto, PagedResult } from '../../domain';
 import { Observable } from 'rxjs/Observable';
-import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'app-orders-page',

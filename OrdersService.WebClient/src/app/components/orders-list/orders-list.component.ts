@@ -1,8 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
-import { State } from '@progress/kendo-data-query';
+import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { OrderDto, PagedResult } from '../../domain';
-
 
 @Component({
   selector: 'app-orders-list',
