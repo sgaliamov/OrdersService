@@ -35,7 +35,8 @@ namespace OrdersService.DataAccess
                                      .OrderBy(x => x.DisplayId)
                                      .Skip((page - 1) * PageSize)
                                      .Take(PageSize)
-                                     .ToArrayAsync().ConfigureAwait(false);
+                                     .ToArrayAsync()
+                                     .ConfigureAwait(false);
 
             return new Paged<OrderEntity[]>
             {

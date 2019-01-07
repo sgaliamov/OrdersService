@@ -34,6 +34,13 @@ namespace OrdersService.WebApi
             ConfigureDependencies(services);
         }
 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseExceptionHandler();
+            app.UseCors("AllowAll");
+            app.UseMvc();
+        }
+
         private void ConfigureDependencies(IServiceCollection services)
         {
             services.AddDbContext<OrdersServiceContext>(
@@ -55,29 +62,22 @@ namespace OrdersService.WebApi
             services.AddAutoMapper(config =>
             {
                 config.CreateMap<OrderEntity, OrderReadModel>()
-                    .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
+                      .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
 
                 config.CreateMap<OrderInputModel, UpdateOrderCommand>()
-                    .IgnoreAllPropertiesWithAnInaccessibleSetter();
+                      .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
                 config.CreateMap<UpdateOrderCommand, OrderEntity>()
-                    .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
+                      .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
 
                 config.CreateMap<OrderEntity, Orders>()
-                    .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
+                      .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
             });
 
             services.AddCors(options => options.AddPolicy("AllowAll",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc();
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            app.UseExceptionHandler();
-            app.UseCors("AllowAll");
-            app.UseMvc();
         }
     }
 }

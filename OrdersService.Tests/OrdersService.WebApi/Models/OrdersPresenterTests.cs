@@ -22,11 +22,6 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             _fixture = new Fixture();
         }
 
-        private readonly Mock<IOrdersRepository> _ordersRepository;
-        private readonly Mock<IMapper> _mapper;
-        private readonly OrdersPresenter _target;
-        private readonly Fixture _fixture;
-
         [Fact]
         public async Task Test_GetById()
         {
@@ -45,5 +40,10 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             _mapper.Verify(x => x.Map<OrderReadModel>(entity), Times.Once);
             actual.Should().BeEquivalentTo(model);
         }
+
+        private readonly Mock<IOrdersRepository> _ordersRepository;
+        private readonly Mock<IMapper> _mapper;
+        private readonly OrdersPresenter _target;
+        private readonly Fixture _fixture;
     }
 }

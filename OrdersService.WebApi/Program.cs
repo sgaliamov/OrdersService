@@ -15,17 +15,17 @@ namespace OrdersService.WebApi
         public static IWebHost BuildWebHost(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .CreateLogger();
+                         .MinimumLevel.Debug()
+                         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                         .Enrich.FromLogContext()
+                         .WriteTo.Console()
+                         .CreateLogger();
 
             return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseDefaultServiceProvider(options => options.ValidateScopes = false)
-                .UseSerilog()
-                .Build();
+                          .UseStartup<Startup>()
+                          .UseDefaultServiceProvider(options => options.ValidateScopes = false)
+                          .UseSerilog()
+                          .Build();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace OrdersService.WebApi.Controllers
 
             await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
 
-            return Ok(new {id});
+            return Ok(new { id });
         }
 
         [HttpPost]

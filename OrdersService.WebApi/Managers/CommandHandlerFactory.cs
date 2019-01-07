@@ -14,7 +14,7 @@ namespace OrdersService.WebApi.Managers
 
         public ICommandHandler<TCommand> Resolve<TCommand>() where TCommand : ICommand
         {
-            return (ICommandHandler<TCommand>) _serviceProvider.GetService(typeof(ICommandHandler<TCommand>));
+            return (ICommandHandler<TCommand>)_serviceProvider.GetService(typeof(ICommandHandler<TCommand>));
         }
     }
 }
