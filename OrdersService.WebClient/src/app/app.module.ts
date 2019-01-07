@@ -12,7 +12,7 @@ import { TextBoxModule } from '@progress/kendo-angular-inputs';
 import { NumericTextBoxModule } from '@progress/kendo-angular-inputs';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { OrderEditPageComponent, OrdersListComponent, OrdersPageComponent } from './components';
+import { OrderEditPageComponent, OrdersListComponent, OrdersPageComponent, IssuesListComponent } from './components';
 import { AboutPageComponent, AppComponent, NotFoundPageComponent } from './core';
 import { AppEffects } from './core/app.effects';
 import { metaReducers, reducers } from './core/app.reducers';
@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     OrdersListComponent,
     OrdersPageComponent,
     OrderEditPageComponent,
+    IssuesListComponent,
     NotFoundPageComponent,
     AboutPageComponent
   ],

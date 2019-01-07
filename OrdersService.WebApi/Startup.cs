@@ -13,6 +13,7 @@ using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.DataAccess;
 using OrdersService.DataAccess.Entities;
 using OrdersService.WebApi.Managers;
+using OrdersService.WebApi.Models;
 using Serilog;
 
 namespace OrdersService.WebApi
@@ -71,11 +72,7 @@ namespace OrdersService.WebApi
 
         private static void ConfigureMapper(IMapperConfigurationExpression config)
         {
-            //config.CreateMap<OrderEntity, OrderReadModel>();
-
-            //config.CreateMap<OrderInputModel, UpdateOrderCommand>();
-
-            //config.CreateMap<UpdateOrderCommand, OrderEntity>();
+            config.CreateMap<OrderInputModel, UpdateOrderCommand>();
 
             RepositoryMapper.ConfigureMapper(config);
         }
