@@ -1,41 +1,10 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { OrdersPageComponent, OrderEditPageComponent } from './components';
-import { AboutPageComponent, NotFoundPageComponent } from './core';
+import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'orders',
-    pathMatch: 'full'
-  },
-  {
-    path: 'orders',
-    component: OrdersPageComponent
-  },
-  {
-    path: 'orders/:id',
-    component: OrderEditPageComponent
-  },
-  {
-    path: 'about',
-    component: AboutPageComponent
-  },
-  {
-    path: '404',
-    component: NotFoundPageComponent
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    component: NotFoundPageComponent
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
