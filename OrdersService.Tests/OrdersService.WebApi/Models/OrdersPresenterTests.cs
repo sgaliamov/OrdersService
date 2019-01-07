@@ -23,7 +23,7 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
         }
 
         [Fact]
-        public async Task Test_GetById()
+        public async Task Get_Order_By_Id()
         {
             var id = _fixture.Create<string>();
             var entity = _fixture.Create<OrderEntity>();
