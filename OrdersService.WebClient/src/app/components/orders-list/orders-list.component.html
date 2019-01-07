@@ -1,35 +1,29 @@
-<kendo-grid [data]="data"
-            [pageSize]="pageSize"
-            [skip]="(page-1) * pageSize"
-            [sortable]="false"
-            [pageable]="true"
-            [scrollable]="'none'"
-            (dataStateChange)="dataStateChange($event)">
-  <kendo-grid-column field="id"
-                     title="ID"></kendo-grid-column>
-  <kendo-grid-column field="customerName"
-                     title="Customer Name"></kendo-grid-column>
-  <kendo-grid-column field="address"
-                     title="Address"></kendo-grid-column>
-  <kendo-grid-column field="price"
-                     title="Price"
-                     format="{0:c}"></kendo-grid-column>
+<kendo-grid [data]="data" [pageSize]="pageSize" [skip]="(page-1) * pageSize" [sortable]="false" [pageable]="true"
+            [scrollable]="'none'" (dataStateChange)="dataStateChange($event)">
+  <kendo-grid-column field="orderId" title="ID"></kendo-grid-column>
+  <kendo-grid-column field="customerName" title="Customer Name"></kendo-grid-column>
+  <kendo-grid-column title="Address">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ [dataItem.street, dataItem.number].join(' ').trim() }},
+      {{dataItem.postCode}},
+      {{dataItem.city}},
+      {{dataItem.country}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="price" title="Price" format="{0:c}"></kendo-grid-column>
   <kendo-grid-command-column width="66">
-    <ng-template kendoGridCellTemplate
-                 let-dataItem>
-      <button kendoButton
-              [routerLink]="[dataItem.id]">Edit</button>
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <button kendoButton [routerLink]="[dataItem.orderId]">Edit</button>
     </ng-template>
   </kendo-grid-command-column>
-  <ng-template kendoGridDetailTemplate
-               let-dataItem>
+  <ng-template kendoGridDetailTemplate let-dataItem>
     <section>
-      <p>
-        <strong>Customer Name:</strong> {{dataItem.customerName}}</p>
-      <p>
-        <strong>Address:</strong> {{dataItem.address}}</p>
-      <p>
-        <strong>Price:</strong> {{dataItem.price | currency}}</p>
+      <p><strong>Tickets:</strong></p>
+      <ul>
+        <li>
+          tbd
+        </li>
+      </ul>
     </section>
   </ng-template>
 </kendo-grid>
