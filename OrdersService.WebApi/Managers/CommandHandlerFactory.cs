@@ -3,7 +3,7 @@ using OrdersService.BusinessLogic.Contracts.Commands;
 
 namespace OrdersService.WebApi.Managers
 {
-    public class CommandHandlerFactory : ICommandHandlerFactory
+    public sealed class CommandHandlerFactory : ICommandHandlerFactory
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -14,7 +14,7 @@ namespace OrdersService.WebApi.Managers
 
         public ICommandHandler<TCommand> Resolve<TCommand>() where TCommand : ICommand
         {
-            return (ICommandHandler<TCommand>) _serviceProvider.GetService(typeof(ICommandHandler<TCommand>));
+            return (ICommandHandler<TCommand>)_serviceProvider.GetService(typeof(ICommandHandler<TCommand>));
         }
     }
 }

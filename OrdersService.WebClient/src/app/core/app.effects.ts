@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs/observable';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -40,7 +38,7 @@ export class AppEffects {
       .update(payload.id, payload.order)
       .pipe(
         withLatestFrom(this.store$),
-        map(([id, state]) => new SelectPage({ page: state.orders.page }))))
+        map(([_, state]) => new SelectPage({ page: state.orders.page }))))
   );
 
   constructor(

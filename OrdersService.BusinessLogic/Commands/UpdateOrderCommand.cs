@@ -2,11 +2,11 @@
 
 namespace OrdersService.BusinessLogic.Commands
 {
-    public class UpdateOrderCommand : ICommand
+    public sealed class UpdateOrderCommand : ICommand
     {
-        public string Id { get; set; }
-        public double Price { get; set; }
         public string Address { get; set; }
         public string CustomerName { get; set; }
+        public string Id { get; set; }
+        public double Price { get; set; }
     }
 }

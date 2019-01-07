@@ -12,7 +12,6 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./order-edit-page.component.scss']
 })
 export class OrderEditPageComponent implements OnInit, OnDestroy {
-
   private subscription: Subscription;
   model: OrderDto;
 

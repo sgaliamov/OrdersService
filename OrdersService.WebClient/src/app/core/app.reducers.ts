@@ -1,9 +1,6 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import {
   ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
   MetaReducer
 } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -31,13 +28,14 @@ export function ordersReducer(state: OrdersState = initialState, action: OrderAc
       });
 
     case OrderActionTypes.UPDATE:
-      return ordersAdapter.upsertOne({
-        id: action.payload.id,
-        changes: {
-          ...action.payload.order,
+      const dto: OrderDto = <OrderDto>action.payload.order;
+
+      return ordersAdapter.upsertOne(
+        {
+          ...dto,
           id: action.payload.id
-        }
-      }, {
+        },
+        {
           ...state,
           selectedOrderId: action.payload.id
         });

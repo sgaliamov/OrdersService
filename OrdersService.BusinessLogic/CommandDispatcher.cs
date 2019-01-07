@@ -3,7 +3,7 @@ using OrdersService.BusinessLogic.Contracts.Commands;
 
 namespace OrdersService.BusinessLogic
 {
-    public class CommandDispatcher : ICommandDispatcher
+    public sealed class CommandDispatcher : ICommandDispatcher
     {
         private readonly ICommandHandlerFactory _factory;
 
@@ -16,7 +16,7 @@ namespace OrdersService.BusinessLogic
         {
             var handler = _factory.Resolve<T>();
 
-            await handler.ExecuteAsync(command);
+            await handler.ExecuteAsync(command).ConfigureAwait(false);
         }
     }
 }

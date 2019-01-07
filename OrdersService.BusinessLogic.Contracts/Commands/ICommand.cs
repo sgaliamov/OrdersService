@@ -1,6 +1,4 @@
 ﻿namespace OrdersService.BusinessLogic.Contracts.Commands
 {
-    public interface ICommand
-    {
-    }
+    public interface ICommand { }
 }

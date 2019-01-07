@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ using OrdersService.BusinessLogic.CommandHandlers;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
-using OrdersService.BusinessLogic.Contracts.Persistance;
+using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.DataAccess;
 using OrdersService.DataAccess.Models;
 using OrdersService.WebApi.Managers;
@@ -18,7 +19,7 @@ using Serilog;
 
 namespace OrdersService.WebApi
 {
-    public class Startup
+    public sealed class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -29,9 +30,19 @@ namespace OrdersService.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureInfrustructure(services);
-
+            ConfigureInfrastructure(services);
             ConfigureDependencies(services);
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseCors("AllowAll");
+            app.UseMvc();
         }
 
         private void ConfigureDependencies(IServiceCollection services)
@@ -48,36 +59,29 @@ namespace OrdersService.WebApi
             services.AddScoped<ICommandDispatcher, CommandDispatcher>();
         }
 
-        private static void ConfigureInfrustructure(IServiceCollection services)
+        private static void ConfigureInfrastructure(IServiceCollection services)
         {
             services.AddSingleton(Log.Logger);
 
             services.AddAutoMapper(config =>
             {
                 config.CreateMap<OrderEntity, OrderReadModel>()
-                    .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
+                      .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
 
                 config.CreateMap<OrderInputModel, UpdateOrderCommand>()
-                    .IgnoreAllPropertiesWithAnInaccessibleSetter();
+                      .IgnoreAllPropertiesWithAnInaccessibleSetter();
 
                 config.CreateMap<UpdateOrderCommand, OrderEntity>()
-                    .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
+                      .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
 
                 config.CreateMap<OrderEntity, Orders>()
-                    .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
+                      .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
             });
 
             services.AddCors(options => options.AddPolicy("AllowAll",
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-            services.AddMvc();
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            app.UseExceptionHandler();
-            app.UseCors("AllowAll");
-            app.UseMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
     }
 }

@@ -1,4 +1,4 @@
-import { AppState, OrdersState } from './';
+import { OrdersState } from './';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { OrderDto, PagedResult } from '../domain';
 

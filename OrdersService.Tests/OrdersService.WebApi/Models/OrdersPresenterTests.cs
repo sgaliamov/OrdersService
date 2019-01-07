@@ -4,14 +4,14 @@ using AutoMapper;
 using FluentAssertions;
 using Moq;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
-using OrdersService.BusinessLogic.Contracts.Persistance;
+using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Xunit;
 
 namespace OrdersService.Tests.OrdersService.WebApi.Models
 {
-    public class OrdersPresenterTests
+    public sealed class OrdersPresenterTests
     {
         public OrdersPresenterTests()
         {
@@ -22,13 +22,8 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             _fixture = new Fixture();
         }
 
-        private readonly Mock<IOrdersRepository> _ordersRepository;
-        private readonly Mock<IMapper> _mapper;
-        private readonly OrdersPresenter _target;
-        private readonly Fixture _fixture;
-
         [Fact]
-        public async Task Test_GetById()
+        public async Task Get_Order_By_Id()
         {
             var id = _fixture.Create<string>();
             var entity = _fixture.Create<OrderEntity>();
@@ -38,12 +33,17 @@ namespace OrdersService.Tests.OrdersService.WebApi.Models
             _mapper.Setup(x => x.Map<OrderReadModel>(entity)).Returns(model);
 
             // act
-            var actual = await _target.GetByIdAsync(id);
+            var actual = await _target.GetByIdAsync(id).ConfigureAwait(false);
 
             // assert
             _ordersRepository.Verify(x => x.GetByIdAsync(id), Times.Once);
             _mapper.Verify(x => x.Map<OrderReadModel>(entity), Times.Once);
             actual.Should().BeEquivalentTo(model);
         }
+
+        private readonly Mock<IOrdersRepository> _ordersRepository;
+        private readonly Mock<IMapper> _mapper;
+        private readonly OrdersPresenter _target;
+        private readonly Fixture _fixture;
     }
 }

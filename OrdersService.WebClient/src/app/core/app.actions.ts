@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { OrderDto, OrderModel } from '../domain';
 
-
 export enum OrderActionTypes {
   LOADED = '[Order] Orders Loaded',
   UPDATE = '[Order] Update Order',

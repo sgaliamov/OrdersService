@@ -4,8 +4,8 @@ import { OrderDto, PagedResult, OrderModel } from './';
 
 @Injectable()
 export class OrdersService {
-  private QUERY_PATH = 'http://localhost:54765/api/ordersQuery/';
-  private COMMAND_PATH = 'http://localhost:54765/api/ordersCommand/';
+  private QUERY_PATH = 'http://localhost:5000/api/ordersQuery/';
+  private COMMAND_PATH = 'http://localhost:5000/api/ordersCommand/';
 
   constructor(private http: HttpClient) { }
 

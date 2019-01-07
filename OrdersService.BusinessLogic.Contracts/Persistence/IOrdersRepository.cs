@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
 
-namespace OrdersService.BusinessLogic.Contracts.Persistance
+namespace OrdersService.BusinessLogic.Contracts.Persistence
 {
     public interface IOrdersRepository
     {
