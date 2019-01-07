@@ -24,4 +24,4 @@ export class OrdersService {
 }
 
 
-https://albelli-test-cc.atlassian.net/rest/api/3/search?jql=description~%22SAL1005239%22&fields=summary
+// https://albelli-test-cc.atlassian.net/rest/api/3/search?jql=description~%22SAL1005239%22&fields=summary

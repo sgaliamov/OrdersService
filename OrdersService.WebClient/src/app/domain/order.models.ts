@@ -1,14 +1,24 @@
 export interface OrderModel {
-  price?: number;
-  address?: string;
+  city?: string;
+  country?: string;
   customerName?: string;
+  number?: number;
+  phone?: string;
+  postCode?: string;
+  price?: string;
+  street?: string;
 }
 
 export interface OrderDto {
-  id: string;
-  price: number;
-  address: string;
+  city: string;
+  country: string;
   customerName: string;
+  number?: number;
+  orderId: string;
+  phone: string;
+  postCode: string;
+  price: string;
+  street: string;
 }
 
 export interface PagedResult<T> {
