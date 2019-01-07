@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <form class="k-form"
+        *ngIf="!!model"
+        novalidate
+        #editForm="ngForm"
+        (ngSubmit)="onSubmit()">
+    <fieldset>
+      <legend>{{model.id}}</legend>
+
+      <label class="k-form-field">
+        <span>
+          Customer Name
+          <span class="k-required">*</span>
+        </span>
+        <input class="k-textbox"
+               name="customerName"
+               [(ngModel)]="model.customerName"
+               required
+               #name="ngModel" />
+        <div class="k-tooltip k-tooltip-validation"
+             *ngIf="name.invalid && (name.dirty || name.touched)">
+          Customer Name is required
+        </div>
+      </label>
+
+      <label class="k-form-field">
+        <span>
+          Price
+          <span class="k-required">*</span>
+        </span>
+        <kendo-numerictextbox [format]="'c0'"
+                              name="price"
+                              [(ngModel)]="model.price"
+                              [min]="0"
+                              required></kendo-numerictextbox>
+        <div class="k-tooltip k-tooltip-validation"
+             *ngIf="editForm.controls.price && editForm.controls.price.invalid && (editForm.controls.price.dirty || editForm.controls.price.touched)">
+          Price is invalid
+        </div>
+      </label>
+      <label class="k-form-field">
+        <span>
+          Address
+          <span class="k-field-info">optional</span>
+        </span>
+        <input class="k-textbox"
+               name="address"
+               [(ngModel)]="model.address" />
+      </label>
+    </fieldset>
+    <div class="buttons">
+      <button type="submit"
+              [disabled]="!editForm.form.valid"
+              class="k-button k-primary">Submit</button>
+      <button type="button"
+              [routerLink]="['/orders']"
+              class="k-button">Cancel</button>
+
+    </div>
+  </form>
+</div>

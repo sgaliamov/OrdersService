@@ -1,15 +1,4 @@
 {
-  "name": "web-client",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve -lr false -o",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~7.1.0",
     "@angular/common": "~7.1.0",
@@ -19,8 +8,26 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@ngrx/effects": "^7.0.0",
+    "@ngrx/entity": "^7.0.0",
+    "@ngrx/store": "^7.0.0",
+    "@ngrx/store-devtools": "^7.0.0",
+    "@progress/kendo-angular-buttons": "^4.0.0",
+    "@progress/kendo-angular-dateinputs": "2 - 3",
+    "@progress/kendo-angular-dropdowns": "2 - 3",
+    "@progress/kendo-angular-excel-export": "1 - 2",
+    "@progress/kendo-angular-grid": "^3.10.2",
+    "@progress/kendo-angular-inputs": "2 - 3",
+    "@progress/kendo-angular-intl": "^1.0.0",
+    "@progress/kendo-angular-l10n": "^1.1.0",
+    "@progress/kendo-angular-popup": "^2.0.0",
+    "@progress/kendo-data-query": "^1.0.0",
+    "@progress/kendo-drawing": "^1.0.0",
+    "@progress/kendo-theme-default": "latest",
     "core-js": "^2.5.4",
+    "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.3.3",
+    "rxjs-compat": "^6.0.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
@@ -29,9 +36,9 @@
     "@angular/cli": "~7.1.4",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -44,5 +51,16 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.6"
-  }
+  },
+  "name": "web-client",
+  "private": true,
+  "scripts": {
+    "build": "ng build --prod",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "ng": "ng",
+    "start": "ng serve --live-reload false -o",
+    "test": "ng test"
+  },
+  "version": "0.0.0"
 }
