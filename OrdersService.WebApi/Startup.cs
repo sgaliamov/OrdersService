@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,14 +31,17 @@ namespace OrdersService.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             ConfigureInfrastructure(services);
-
             ConfigureDependencies(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseExceptionHandler();
-            app.UseCors("AllowAll");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            //app.UseCors("AllowAll"); todo: test
             app.UseMvc();
         }
 
@@ -74,10 +78,10 @@ namespace OrdersService.WebApi
                       .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
             });
 
-            services.AddCors(options => options.AddPolicy("AllowAll",
-                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            //services.AddCors(options => options.AddPolicy("AllowAll",
+            //    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod())); todo: test
 
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
     }
 }
