@@ -1,4 +1,4 @@
-export interface OrderModel {
+export interface OrderEditModel {
   city?: string;
   country?: string;
   customerName?: string;

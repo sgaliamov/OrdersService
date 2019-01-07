@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { OrderDto, OrderModel } from '../domain';
+import { OrderDto, OrderEditModel } from '../domain';
 
 export enum OrderActionTypes {
   LOADED = '[Order] Orders Loaded',
@@ -23,7 +23,7 @@ export class OrdersLoaded implements Action {
 export class UpdateOrder implements Action {
   readonly type = OrderActionTypes.UPDATE;
 
-  constructor(public readonly payload: { id: string, order: OrderModel }) { }
+  constructor(public readonly payload: { orderId: string, order: OrderEditModel }) { }
 }
 
 export class Fail implements Action {

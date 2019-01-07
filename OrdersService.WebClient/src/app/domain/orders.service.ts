@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { OrderDto, PagedResult, OrderModel } from './';
+import { OrderDto, PagedResult, OrderEditModel } from './';
 
 @Injectable()
 export class OrdersService {
@@ -17,7 +17,7 @@ export class OrdersService {
     return this.http.get<OrderDto>(`${this.QUERY_PATH}id/${id}`);
   }
 
-  update(id: string, order: OrderModel) {
+  update(id: string, order: OrderEditModel) {
     return this.http.put<string>(`${this.COMMAND_PATH}${id}`, order);
   }
 

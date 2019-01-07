@@ -35,7 +35,7 @@ export class AppEffects {
     ofType<UpdateOrder>(OrderActionTypes.UPDATE),
     map(action => action.payload),
     switchMap(payload => this.ordersService
-      .update(payload.id, payload.order)
+      .update(payload.orderId, payload.order)
       .pipe(
         withLatestFrom(this.store$),
         map(([_, state]) => new SelectPage({ page: state.orders.page }))))
