@@ -41,7 +41,7 @@ namespace OrdersService.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseCors("AllowAll"); todo: test
+            app.UseCors("AllowAll");
             app.UseMvc();
         }
 
@@ -78,8 +78,8 @@ namespace OrdersService.WebApi
                       .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
             });
 
-            //services.AddCors(options => options.AddPolicy("AllowAll",
-            //    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod())); todo: test
+            services.AddCors(options => options.AddPolicy("AllowAll",
+                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
