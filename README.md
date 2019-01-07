@@ -1,6 +1,6 @@
 # Orders service
 
-Implementation of a typical technical assignment that a company could give to have topics for discussion on an interview.
+The solution contains implementation of a typical technical assignment that a company could give to have topics for discussion on an interview.
 
 ## Implementation details
 
@@ -8,37 +8,37 @@ This section contains description and reasoning about technical decisions.
 
 ### Top down development
 
-Implementation was started from UI application with fake backend. Such approach helps faster demonstrate to a client what he will get at the end and receive very important feedback on early stages of development. It also helps define required interfaces and data contracts between UI application and api.
+Implementation was started from UI application with fake backend. Such approach helps faster demonstrate to a client what he will get at the end and receive very important feedback on early stages of development. It also helps define interfaces and data contracts between UI application and API.
 
 ### CQRS
 
 The project have simple implementation of Command and Query Responsibility Segregation pattern.
 
-`OrdersQueryController` and `OrdersPresenter` represents the Query part. Their responsibility is to retrieve data from DB and convert to DTO.`OrdersCommandController`, `ICommandBuilder` and `ICommandDispatcher` are responsible for commands processing.
+`OrdersQueryController` and `OrdersPresenter` represents the Query part. Their responsibility is to retrieve data from DB and convert it to DTO. `OrdersCommandController`, `ICommandBuilder` and `ICommandDispatcher` are responsible for commands processing.
 
-In this particular case using `CQRS` pattern is over-engineering. But in big high-load project I would seriously consider to apply this approach to able horizontally scale an application.
+In this particular case using `CQRS` pattern is over-engineering. But in a big high-load project I would seriously consider this approach to able horizontally scale an application.
 
 ### DIP and SOLID
 
-The design of application is created having SOLID principles in mind. For example, `IOrdersRepository` is defined in `OrdersService.BusinessLogic.Contracts` thus `Data access layer` have to follow business logic, but not vise versa (DIP).
+The design of application is created having SOLID principles in mind. For example, `IOrdersRepository` is defined in `OrdersService.BusinessLogic.Contracts`. Thus Data access layer have to follow business logic, but not vise versa (DIP).
 
 ### Angular
 
-Why `Angular`? It's enterprise level framework which is implemented following latest and future industrial standards such as [Web Components](https://en.wikipedia.org/wiki/Web_Components) and [WebAssembly](https://en.wikipedia.org/wiki/WebAssembly). But how knows? [Blazor](https://blazor.net/) could be good candidate for .net developers.
+Why Angular? It's enterprise level framework which is implemented following latest and future industrial standards such as [Web Components](https://en.wikipedia.org/wiki/Web_Components) and [WebAssembly](https://en.wikipedia.org/wiki/WebAssembly). [Blazor](https://blazor.net/) could be good candidate for .net developers.
 
 ### Redux approach with NgRx
 
-For big projects managing state is challenging. Using [NgRx](https://github.com/ngrx/platform) makes development easy and much fun. `Angular/Ngrx` are [mature](https://gist.github.com/btroncone/a6e4347326749f938510) enough to use it in production.
+For UI big projects managing state is challenging.  [NgRx](https://github.com/ngrx/platform) makes development easy and fun. `Ngrx` are [mature](https://gist.github.com/btroncone/a6e4347326749f938510) enough to use it in production.
 
 ## Descoped features
 
-The goal of the project to have topics for the discussion on an interview and to not implement full blown solution for a specific domain. That way some features are not implemented now, but should be applied for a real situation. This list I would use as check list for a real project.
+The goal of the project to have topics for the discussion on an interview and to not implement full blown solution for a specific domain. That way some features are not implemented now, but should be applied for a real situation. This list could be used as a check list for a real project.
 
 **Flex layout** - ability to adapt UI for any screens. There are good library [Angular Flex-Layout](https://github.com/angular/flex-layout) which is compatible with [Angular Material](https://material.angular.io/).
 
-**Authentication** - `OAuth2` is good candidate to implement authentication. And of course, we should not forget about authorization.
+**Authentication** - `OAuth2` is good candidate to implement authentication. And of course, we should not forget about authorization logic.
 
-**Docker containers** - it's pretty easy to run UI and backend in a containers. Especially, if we use `.net core`.
+**Docker containers** - it's pretty easy to run UI and backend in a containers. Especially, if we use `.NET Core`.
 
 **[Route guards](https://angular.io/guide/router#guards)** - Angular feature that can warn a user that before doing important or irreparable actions.
 
@@ -48,9 +48,9 @@ The goal of the project to have topics for the discussion on an interview and to
 
 **Optimistic locks** - it's a good practice to prevent users concurrently override data. We should provide versioning data for each update.
 
-**Swagger** - easy way to have documentation and testing tool for an api.
+**Swagger** - easy way to have documentation and testing tool for an API.
 
-**DDD and aggregates** - for big complex domain we could apply DDD practices and create domain aggregates. Personally, I prefer anemic model and functional style.
+**DDD and aggregates** - for big complex domain we could apply [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) practices and create domain aggregates. Personally, I prefer anemic model and functional programming style.
 
 **Query handler to improve CQRS** - in complex cases we could have a query handler, similar to `ICommandDispatcher` for the commands flow.
 
@@ -60,9 +60,9 @@ The goal of the project to have topics for the discussion on an interview and to
 
 **Event sourcing** - having commands log we able to restore state of a system for any moment.
 
-**Separate repositories to process commands** - now the project have one repository for everything. But it could be good decision to separate repositories for altering and retrieving data. It will help to use proper tool in each case and focus on performance where it necessary.
+**Separate repositories to process commands** - now the project have one repository for everything. But it could be good decision to separate repositories for altering and querying data. It will help to use proper tool in each case and focus on performance where it necessary.
 
-**Dapper** - very good micro ORM, good candidate for commands processing.
+**Dapper** - very good micro ORM, good candidate to implement commands processing.
 
 **Integration tests on DB** - Even using EF, actual behavior could differ from expected. That why I prefer to test repositories on real DB.
 
@@ -70,6 +70,6 @@ The goal of the project to have topics for the discussion on an interview and to
 
 **Wrapping 3rd party components** - for long term projects it's important to stay flexible and to not depend on 3rd party. Sometimes they die or better option is coming.
 
-**E2e test** - another good reason use `Angular` is [Protractor](https://www.protractortest.org/#/). Extremely useful testing tool.
+**E2e test** - another good reason use Angular is [Protractor](https://www.protractortest.org/#/). Extremely useful testing tool.
 
 Of course, the list is not complete and will be extended.
