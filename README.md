@@ -64,8 +64,6 @@ The goal of the project to have topics for the discussion on an interview and to
 
 **Dapper** - very good micro ORM, good candidate to implement commands processing.
 
-**Integration tests on DB** - Even using EF, actual behavior could differ from expected. That why I prefer to test repositories on real DB.
-
 **Global exception handler** - no exception should stay untracked. I like log into `Kibana` using `Serilog`.
 
 **Wrapping 3rd party components** - for long term projects it's important to stay flexible and to not depend on 3rd party. Sometimes they die or better option is coming.
