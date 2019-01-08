@@ -16,7 +16,7 @@ import { OrderEditPageComponent, OrdersListComponent, OrdersPageComponent, Issue
 import { AboutPageComponent, AppComponent, NotFoundPageComponent } from './core';
 import { AppEffects } from './core/app.effects';
 import { metaReducers, reducers } from './core/app.reducers';
-import { OrdersService } from './domain';
+import { OrdersService, IssuesService } from './domain';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -44,7 +44,7 @@ import { FormsModule } from '@angular/forms';
     NumericTextBoxModule,
     TextBoxModule
   ],
-  providers: [OrdersService],
+  providers: [OrdersService, IssuesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
