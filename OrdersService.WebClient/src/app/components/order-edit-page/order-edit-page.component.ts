@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
-import { OrdersService, OrderDto } from '../../domain';
 import { Subscription } from 'rxjs/Subscription';
 import { AppState, UpdateOrder } from '../../core';
-import { Store } from '@ngrx/store';
+import { OrderDto, OrdersService } from '../../domain';
 
 @Component({
   selector: 'app-order-edit-page',
@@ -43,4 +44,7 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/orders']);
   }
 
+  invalid(control: AbstractControl) {
+    return control && control.invalid && (control.dirty || control.touched);
+  }
 }

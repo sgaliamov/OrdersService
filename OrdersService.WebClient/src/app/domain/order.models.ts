@@ -2,7 +2,7 @@ export interface OrderEditModel {
   city?: string;
   country?: string;
   customerName?: string;
-  number?: number;
+  number?: string;
   phone?: string;
   postCode?: string;
   price?: string;
@@ -13,7 +13,7 @@ export interface OrderDto {
   city: string;
   country: string;
   customerName: string;
-  number?: number;
+  number?: string;
   orderId: string;
   phone: string;
   postCode: string;

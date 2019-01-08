@@ -7,7 +7,7 @@
     [Price]             MONEY          NOT NULL,
     [CustomerName]      NVARCHAR (260) NOT NULL,
     [PostCode]          VARCHAR (32)   NOT NULL,
-    [Number]            INT            NULL,
+    [Number]            NVARCHAR (100) NULL,
     [Street]            NVARCHAR (100) NOT NULL,
     [City]              NVARCHAR (100) NOT NULL,
     [Country]           NVARCHAR (100) NOT NULL,

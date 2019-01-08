@@ -10,6 +10,8 @@ namespace OrdersService.DataAccess.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
             modelBuilder.Entity<Orders>(entity =>
             {
                 entity.HasIndex(e => e.OrderId)
@@ -29,6 +31,8 @@ namespace OrdersService.DataAccess.Entities
                 entity.Property(e => e.CustomerName)
                       .IsRequired()
                       .HasMaxLength(260);
+
+                entity.Property(e => e.Number).HasMaxLength(100);
 
                 entity.Property(e => e.OrderId)
                       .IsRequired()
