@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,7 @@ namespace OrdersService.DataAccess
             }
             else
             {
+                entity.OrderId = Guid.NewGuid().ToString().Substring(0, 8).ToUpperInvariant();
                 data = _mapper.Map<Orders>(entity);
                 await _context.Orders.AddAsync(data).ConfigureAwait(false);
             }

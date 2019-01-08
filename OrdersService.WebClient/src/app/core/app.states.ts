@@ -12,7 +12,8 @@ export interface OrdersState extends EntityState<OrderDto> {
 }
 
 function sortByName(a: OrderDto, b: OrderDto): number {
-  return a.orderId.localeCompare(b.orderId);
+  const id = a.orderId || '';
+  return id.localeCompare(b.orderId);
 }
 
 export const ordersAdapter: EntityAdapter<OrderDto> = createEntityAdapter<OrderDto>({

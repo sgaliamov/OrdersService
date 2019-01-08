@@ -12,11 +12,11 @@ namespace OrdersService.BusinessLogic
             _factory = factory;
         }
 
-        public async Task ExecuteAsync<T>(T command) where T : ICommand
+        public async Task<string> ExecuteAsync<T>(T command) where T : ICommand
         {
             var handler = _factory.Resolve<T>();
 
-            await handler.ExecuteAsync(command).ConfigureAwait(false);
+            return await handler.ExecuteAsync(command).ConfigureAwait(false);
         }
     }
 }

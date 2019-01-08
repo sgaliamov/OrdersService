@@ -10,6 +10,7 @@ using OrdersService.BusinessLogic;
 using OrdersService.BusinessLogic.CommandHandlers;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
+using OrdersService.BusinessLogic.Contracts.DomainModels;
 using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.DataAccess;
 using OrdersService.DataAccess.Entities;
@@ -76,6 +77,7 @@ namespace OrdersService.WebApi
         private static void ConfigureMapper(IMapperConfigurationExpression config)
         {
             config.CreateMap<OrderInputModel, UpdateOrderCommand>();
+            config.CreateMap<AddOrderCommand, OrderEntity>().ForMember(x => x.OrderId, c => c.Ignore());
 
             RepositoryMapper.ConfigureMapper(config);
         }
