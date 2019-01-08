@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 import { Subscription } from 'rxjs/Subscription';
-import { AppState, UpdateOrder } from '../../core';
-import { OrderDto, OrdersService } from '../../domain';
+import { AppState, UpsertOrder } from '../../core';
+import { OrderDto, OrdersService, OrderEditModel } from '../../domain';
 
 @Component({
   selector: 'app-order-edit-page',
@@ -14,7 +15,8 @@ import { OrderDto, OrdersService } from '../../domain';
 })
 export class OrderEditPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
-  model: OrderDto;
+  model: OrderEditModel;
+  orderId: string;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -25,7 +27,14 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.route.paramMap
-      .switchMap(params => this.ordersService.order(params.get('id')))
+      .switchMap(params => {
+        this.orderId = params.get('id');
+        if (this.orderId) {
+          return this.ordersService.order(this.orderId);
+        }
+
+        return of({});
+      })
       .subscribe(data => this.model = data);
   }
 
@@ -37,9 +46,9 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.store.dispatch(new UpdateOrder({
+    this.store.dispatch(new UpsertOrder({
       order: this.model,
-      orderId: this.model.orderId
+      orderId: this.orderId
     }));
     this.router.navigate(['/orders']);
   }

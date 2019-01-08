@@ -25,9 +25,9 @@ namespace OrdersService.WebApi.Controllers
         {
             var command = _commandBuilder.BuildUpdateOrderCommand(id, data);
 
-            await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
+            var orderId = await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
 
-            return Ok(new { id });
+            return Ok(new { id = orderId });
         }
 
         [HttpPost]
@@ -35,9 +35,9 @@ namespace OrdersService.WebApi.Controllers
         {
             var command = _commandBuilder.BuildAddOrderCommand(data);
 
-            await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
+            var orderId = await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
 
-            return Ok();
+            return Ok(new { id = orderId });
         }
     }
 }

@@ -5,6 +5,6 @@ namespace OrdersService.BusinessLogic
 {
     public interface ICommandDispatcher
     {
-        Task ExecuteAsync<T>(T command) where T : ICommand;
+        Task<string> ExecuteAsync<T>(T command) where T : ICommand;
     }
 }

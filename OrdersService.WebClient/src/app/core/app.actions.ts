@@ -3,7 +3,7 @@ import { OrderDto, OrderEditModel } from '../domain';
 
 export enum OrderActionTypes {
   LOADED = '[Order] Orders Loaded',
-  UPDATE = '[Order] Update Order',
+  UPSERT = '[Order] Update Order',
   SELECT_PAGE = '[Order] Select Page',
   FAIL = '[Order] Fail'
 }
@@ -20,8 +20,8 @@ export class OrdersLoaded implements Action {
   constructor(public readonly payload: { orders: OrderDto[], total: number }) { }
 }
 
-export class UpdateOrder implements Action {
-  readonly type = OrderActionTypes.UPDATE;
+export class UpsertOrder implements Action {
+  readonly type = OrderActionTypes.UPSERT;
 
   constructor(public readonly payload: { orderId: string, order: OrderEditModel }) { }
 }
@@ -34,6 +34,6 @@ export class Fail implements Action {
 
 export type OrderActions
   = OrdersLoaded
-  | UpdateOrder
+  | UpsertOrder
   | SelectPage
   | Fail;

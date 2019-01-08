@@ -1,7 +1,7 @@
 <div class="wrapper">
   <form class="k-form" *ngIf="!!model" novalidate #editForm="ngForm" (ngSubmit)="onSubmit()">
     <fieldset>
-      <legend>{{model.orderId}}</legend>
+      <legend>{{model.orderId || 'Create new order'}}</legend>
 
       <label class="k-form-field">
         <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(customerName)">Customer Name is required</span>

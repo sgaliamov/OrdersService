@@ -5,7 +5,7 @@ export interface OrderEditModel {
   number?: string;
   phone?: string;
   postCode?: string;
-  price?: string;
+  price?: number;
   street?: string;
 }
 
@@ -17,7 +17,7 @@ export interface OrderDto {
   orderId: string;
   phone: string;
   postCode: string;
-  price: string;
+  price: number;
   street: string;
 }
 

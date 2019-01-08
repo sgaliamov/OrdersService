@@ -24,13 +24,11 @@ namespace OrdersService.BusinessLogic.CommandHandlers
             _logger = logger;
         }
 
-        public async Task ExecuteAsync(UpdateOrderCommand command)
+        public async Task<string> ExecuteAsync(UpdateOrderCommand command)
         {
-            _logger.Information("Processing Update command: {@command}", command);
+            _logger.Information("Processing Update command: {@command}.", command);
 
-            await _ordersRepository.AddOrUpdateAsync(_mapper.Map<OrderEntity>(command)).ConfigureAwait(false);
-
-            _logger.Information("Update command finished");
+            return await _ordersRepository.AddOrUpdateAsync(_mapper.Map<OrderEntity>(command)).ConfigureAwait(false);
         }
     }
 }

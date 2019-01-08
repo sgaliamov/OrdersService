@@ -4,7 +4,7 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { OrdersService, PagedResult, OrderDto } from '../domain';
-import { Fail, OrderActionTypes, OrdersLoaded, SelectPage, UpdateOrder, AppState } from './';
+import { Fail, OrderActionTypes, OrdersLoaded, SelectPage, UpsertOrder, AppState } from './';
 import { Store } from '@ngrx/store';
 
 const mapResult = map((result: PagedResult<OrderDto[]>) =>
@@ -32,13 +32,15 @@ export class AppEffects {
 
   @Effect()
   readonly updateOrder$ = this.actions$.pipe(
-    ofType<UpdateOrder>(OrderActionTypes.UPDATE),
+    ofType<UpsertOrder>(OrderActionTypes.UPSERT),
     map(action => action.payload),
-    switchMap(payload => this.ordersService
-      .update(payload.orderId, payload.order)
-      .pipe(
-        withLatestFrom(this.store$),
-        map(([_, state]) => new SelectPage({ page: state.orders.page }))))
+    switchMap(payload => {
+      const result = payload.orderId
+        ? this.ordersService.update(payload.orderId, payload.order)
+        : this.ordersService.create(payload.order);
+
+      return result.pipe(withLatestFrom(this.store$), map(([_, state]) => new SelectPage({ page: state.orders.page })));
+    })
   );
 
   constructor(

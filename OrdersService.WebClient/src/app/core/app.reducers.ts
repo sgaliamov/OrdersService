@@ -27,7 +27,7 @@ export function ordersReducer(state: OrdersState = initialState, action: OrderAc
         total: action.payload.total
       });
 
-    case OrderActionTypes.UPDATE:
+    case OrderActionTypes.UPSERT:
       const dto: OrderDto = <OrderDto>action.payload.order;
 
       return ordersAdapter.upsertOne(

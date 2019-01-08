@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +46,7 @@ namespace OrdersService.DataAccess
             };
         }
 
-        public async Task AddOrUpdateAsync(OrderEntity entity)
+        public async Task<string> AddOrUpdateAsync(OrderEntity entity)
         {
             var data = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == entity.OrderId).ConfigureAwait(false);
             if (data != null)
@@ -54,11 +55,14 @@ namespace OrdersService.DataAccess
             }
             else
             {
+                entity.OrderId = Guid.NewGuid().ToString().Substring(0, 8).ToUpperInvariant();
                 data = _mapper.Map<Orders>(entity);
                 await _context.Orders.AddAsync(data).ConfigureAwait(false);
             }
 
             await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            return data.OrderId;
         }
     }
 }
