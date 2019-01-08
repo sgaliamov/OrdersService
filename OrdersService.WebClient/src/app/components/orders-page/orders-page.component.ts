@@ -25,5 +25,4 @@ export class OrdersPageComponent implements OnInit {
   pageChanged(page: number) {
     this.store.dispatch(new SelectPage({ page }));
   }
-
 }

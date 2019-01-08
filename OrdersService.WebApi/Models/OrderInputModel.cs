@@ -16,9 +16,6 @@ namespace OrdersService.WebApi.Models
         [MaxLength(100)]
         public string Number { get; set; }
 
-        [MaxLength(50)]
-        public string OrderId { get; set; }
-
         [MaxLength(15)]
         public string Phone { get; set; }
 

@@ -3,7 +3,6 @@ export interface OrderEditModel {
   country?: string;
   customerName?: string;
   number?: string;
-  orderId?: string;
   phone?: string;
   postCode?: string;
   price?: number;

@@ -45,7 +45,7 @@ namespace OrdersService.DataAccess
             };
         }
 
-        public async Task AddOrUpdateAsync(OrderEntity entity)
+        public async Task<string> AddOrUpdateAsync(OrderEntity entity)
         {
             var data = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == entity.OrderId).ConfigureAwait(false);
             if (data != null)
@@ -59,6 +59,8 @@ namespace OrdersService.DataAccess
             }
 
             await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            return data.OrderId;
         }
     }
 }

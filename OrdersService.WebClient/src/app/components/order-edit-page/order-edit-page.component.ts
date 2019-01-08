@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 import { Subscription } from 'rxjs/Subscription';
-import { AppState, UpdateOrder } from '../../core';
+import { AppState, UpsertOrder } from '../../core';
 import { OrderDto, OrdersService, OrderEditModel } from '../../domain';
 
 @Component({
@@ -16,6 +16,7 @@ import { OrderDto, OrdersService, OrderEditModel } from '../../domain';
 export class OrderEditPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   model: OrderEditModel;
+  orderId: string;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -27,9 +28,9 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.paramMap
       .switchMap(params => {
-        const id = params.get('id');
-        if (id) {
-          return this.ordersService.order(id);
+        this.orderId = params.get('id');
+        if (this.orderId) {
+          return this.ordersService.order(this.orderId);
         }
 
         return of({});
@@ -45,9 +46,9 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.store.dispatch(new UpdateOrder({
+    this.store.dispatch(new UpsertOrder({
       order: this.model,
-      orderId: this.model.orderId
+      orderId: this.orderId
     }));
     this.router.navigate(['/orders']);
   }

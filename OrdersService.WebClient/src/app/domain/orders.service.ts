@@ -18,4 +18,8 @@ export class OrdersService {
   update(id: string, order: OrderEditModel) {
     return this.http.put<string>(`${COMMAND_PATH}${id}`, order);
   }
+
+  create(order: OrderEditModel) {
+    return this.http.post<string>(COMMAND_PATH, order);
+  }
 }
