@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState, getOrders, SelectPage, getPage } from '../../core';
-import { OrderDto, PagedResult } from '../../domain';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { IssuesCollection, IssuesService } from '../../domain';
 
 @Component({
   selector: 'app-issues-list',
@@ -10,15 +8,13 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./issues-list.component.scss']
 })
 export class IssuesListComponent implements OnInit {
+  @Input()
+  readonly orderId: string;
+  data: Observable<IssuesCollection>;
 
-  data: string;
-
-  constructor(private readonly store: Store<AppState>) {
-    this.data = new Date().toLocaleTimeString();
-  }
+  constructor(private readonly issuesService: IssuesService) { }
 
   ngOnInit() {
+    this.data = this.issuesService.search(this.orderId);
   }
-
-
 }

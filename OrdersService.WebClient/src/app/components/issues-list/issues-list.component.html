@@ -1,8 +1,8 @@
 <section>
   <p><strong>Tickets:</strong></p>
   <ul>
-    <li>
-      {{ data }}
+    <li *ngFor="let item of data | async">
+      {{ item }}
     </li>
   </ul>
 </section>
