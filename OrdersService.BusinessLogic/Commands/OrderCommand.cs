@@ -1,34 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OrdersService.BusinessLogic.Contracts.Commands;
 
-namespace OrdersService.WebApi.Models
+namespace OrdersService.BusinessLogic.Commands
 {
-    public sealed class OrderInputModel
+    public abstract class OrderCommand : ICommand
     {
-        [MaxLength(100)]
         public string City { get; set; }
-
-        [MaxLength(100)]
         public string Country { get; set; }
-
-        [MaxLength(260)]
         public string CustomerName { get; set; }
-
-        [MaxLength(100)]
         public string Number { get; set; }
-
-        [MaxLength(50)]
         public string OrderId { get; set; }
-
-        [MaxLength(15)]
         public string Phone { get; set; }
-
-        [MaxLength(32)]
         public string PostCode { get; set; }
-
-        [Range(0, double.PositiveInfinity)]
         public decimal Price { get; set; }
-
-        [MaxLength(100)]
         public string Street { get; set; }
     }
 }
