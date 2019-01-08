@@ -18,6 +18,10 @@ const routes: Routes = [
     component: OrderEditPageComponent
   },
   {
+    path: 'create',
+    component: OrderEditPageComponent
+  },
+  {
     path: 'about',
     component: AboutPageComponent
   },

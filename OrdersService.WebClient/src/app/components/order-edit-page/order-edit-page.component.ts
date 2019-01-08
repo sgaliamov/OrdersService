@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 import { Subscription } from 'rxjs/Subscription';
 import { AppState, UpdateOrder } from '../../core';
-import { OrderDto, OrdersService } from '../../domain';
+import { OrderDto, OrdersService, OrderEditModel } from '../../domain';
 
 @Component({
   selector: 'app-order-edit-page',
@@ -14,7 +15,7 @@ import { OrderDto, OrdersService } from '../../domain';
 })
 export class OrderEditPageComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
-  model: OrderDto;
+  model: OrderEditModel;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -25,7 +26,14 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.route.paramMap
-      .switchMap(params => this.ordersService.order(params.get('id')))
+      .switchMap(params => {
+        const id = params.get('id');
+        if (id) {
+          return this.ordersService.order(id);
+        }
+
+        return of({});
+      })
       .subscribe(data => this.model = data);
   }
 

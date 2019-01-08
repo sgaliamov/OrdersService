@@ -3,9 +3,10 @@ export interface OrderEditModel {
   country?: string;
   customerName?: string;
   number?: string;
+  orderId?: string;
   phone?: string;
   postCode?: string;
-  price?: string;
+  price?: number;
   street?: string;
 }
 
@@ -17,7 +18,7 @@ export interface OrderDto {
   orderId: string;
   phone: string;
   postCode: string;
-  price: string;
+  price: number;
   street: string;
 }
 
