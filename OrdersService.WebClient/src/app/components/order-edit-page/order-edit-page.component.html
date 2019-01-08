@@ -4,74 +4,54 @@
       <legend>{{model.orderId}}</legend>
 
       <label class="k-form-field">
-        <span>
-          Customer Name
-          <span class="k-required">*</span>
-        </span>
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(customerName)">Customer Name is required</span>
+        <span>Customer Name <span class="k-required">*</span></span>
         <input class="k-textbox" maxlength="260" name="customerName" [(ngModel)]="model.customerName" required
                #customerName="ngModel" />
-        <div class="k-tooltip k-tooltip-validation" *ngIf="customerName.invalid && (customerName.dirty || customerName.touched)">
-          Customer Name is required
-        </div>
       </label>
 
       <label class="k-form-field">
-        <span>
-          Price
-          <span class="k-required">*</span>
-        </span>
-        <kendo-numerictextbox [format]="'c0'" name="price" [(ngModel)]="model.price" [min]="0" required></kendo-numerictextbox>
-        <div class="k-tooltip k-tooltip-validation" *ngIf="editForm.controls.price && editForm.controls.price.invalid && (editForm.controls.price.dirty || editForm.controls.price.touched)">
-          Price is invalid
-        </div>
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(price)">Valid price is required</span>
+        <span>Price <span class="k-required">*</span></span>
+        <kendo-numerictextbox [format]="'0.00'" name="price" [(ngModel)]="model.price" [min]="0" required #price="ngModel"></kendo-numerictextbox>
       </label>
 
       <label class="k-form-field">
-        <span>
-          Street
-          <span class="k-required">*</span>
-        </span>
-        <input class="k-textbox" name="street" required maxlength="100" [(ngModel)]="model.street" />
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(street)">Street is required</span>
+        <span>Street <span class="k-required">*</span></span>
+        <input class="k-textbox" name="street" required maxlength="100" [(ngModel)]="model.street" #street="ngModel" />
       </label>
 
       <label class="k-form-field">
-        <span>
-          Number
-          <span class="k-field-info">optional</span>
-        </span>
-        <input class="k-textbox" name="number" [(ngModel)]="model.number" />
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(number)">Invalid House number</span>
+        <span>House number <span class="k-field-info">optional</span></span>
+        <input class="k-textbox" name="number" maxlength="100" [(ngModel)]="model.number" #number="ngModel" />
       </label>
 
       <label class="k-form-field">
-        <span>
-          Post Code
-          <span class="k-required">*</span>
-        </span>
-        <input class="k-textbox" name="postCode" required maxlength="32" [(ngModel)]="model.postCode" />
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(postCode)">Invalid Post Code</span>
+        <span>Post Code <span class="k-required">*</span></span>
+        <input class="k-textbox" name="postCode" required pattern="[0-9]{4}[a-zA-Z]{2}" maxlength="6" [(ngModel)]="model.postCode"
+               #postCode="ngModel" />
       </label>
 
       <label class="k-form-field">
-        <span>
-          City
-          <span class="k-required">*</span>
-        </span>
-        <input class="k-textbox" name="city" required maxlength="100" [(ngModel)]="model.city" />
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(city)">City is required</span>
+        <span>City <span class="k-required">*</span></span>
+        <input class="k-textbox" name="city" required maxlength="100" [(ngModel)]="model.city" #city="ngModel" />
       </label>
 
       <label class="k-form-field">
-        <span>
-          Country
-          <span class="k-required">*</span>
-        </span>
-        <input class="k-textbox" name="country" required maxlength="32" [(ngModel)]="model.country" />
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(country)">Country is required</span>
+        <span>Country <span class="k-required">*</span></span>
+        <input class="k-textbox" name="country" required maxlength="32" [(ngModel)]="model.country" #country="ngModel" />
       </label>
 
       <label class="k-form-field">
-        <span>
-          Phone
-          <span class="k-field-info">optional</span>
-        </span>
-        <input class="k-textbox" type="number" name="phone" maxlength="10" [(ngModel)]="model.phone" />
+        <span class="k-tooltip k-tooltip-validation" *ngIf="invalid(phone)">10 digits are required</span>
+        <span>Phone <span class="k-field-info">optional</span></span>
+        <input class="k-textbox" name="phone" pattern="[0-9]{10}" minlength="10" maxlength="10" [(ngModel)]="model.phone"
+               #phone="ngModel" />
       </label>
 
     </fieldset>
