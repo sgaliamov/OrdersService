@@ -65,7 +65,7 @@ namespace OrdersService.WebApi
             services.AddAutoMapper(ConfigureMapper);
 
             services.AddCors(options => options.AddPolicy("AllowAll",
-                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+                builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
