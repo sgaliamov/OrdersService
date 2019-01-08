@@ -45,7 +45,6 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
   }
 
   invalid(control: AbstractControl) {
-    return control && control.invalid && (control.dirty || control.touched)
+    return control && control.invalid && (control.dirty || control.touched);
   }
-
 }
