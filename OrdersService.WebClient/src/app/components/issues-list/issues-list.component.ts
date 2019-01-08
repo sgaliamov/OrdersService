@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IssuesCollection, IssuesService } from '../../domain';
+import { Issue, IssuesService } from '../../domain';
 
 @Component({
   selector: 'app-issues-list',
@@ -10,7 +10,8 @@ import { IssuesCollection, IssuesService } from '../../domain';
 export class IssuesListComponent implements OnInit {
   @Input()
   readonly orderId: string;
-  data: Observable<IssuesCollection>;
+
+  data: Observable<Issue[]>;
 
   constructor(private readonly issuesService: IssuesService) { }
 

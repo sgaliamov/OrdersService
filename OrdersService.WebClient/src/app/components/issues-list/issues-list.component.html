@@ -2,7 +2,7 @@
   <p><strong>Tickets:</strong></p>
   <ul>
     <li *ngFor="let item of data | async">
-      {{ item }}
+      <a target="blank" href="https://albelli-test-cc.atlassian.net/projects/CC/board?issue-key={{item.key}}">{{item.summary}}</a>
     </li>
   </ul>
 </section>

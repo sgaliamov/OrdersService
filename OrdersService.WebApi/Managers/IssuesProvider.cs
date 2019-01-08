@@ -41,7 +41,7 @@ namespace OrdersService.WebApi.Managers
                    .Issues
                    .Select(x => new IssueReadModel
                    {
-                       Id = x.Id,
+                       Key = x.Key,
                        Summary = x.Fields.Summary
                    })
                    .ToArray();
@@ -62,13 +62,13 @@ namespace OrdersService.WebApi.Managers
         private sealed class Issue
         {
             public readonly FieldsCollection Fields;
-            public readonly string Id;
+            public readonly string Key;
 
             // ReSharper disable once UnusedMember.Global
             // ReSharper disable once UnusedMember.Local
-            public Issue(string id, FieldsCollection fields)
+            public Issue(string key, FieldsCollection fields)
             {
-                Id = id;
+                Key = key;
                 Fields = fields;
             }
         }

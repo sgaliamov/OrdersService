@@ -17,6 +17,6 @@
     </ng-template>
   </kendo-grid-command-column>
   <ng-template kendoGridDetailTemplate let-dataItem>
-    <app-issues-list></app-issues-list>
+    <app-issues-list [orderId]=[dataItem.orderId]></app-issues-list>
   </ng-template>
 </kendo-grid>
