@@ -51,6 +51,7 @@ namespace OrdersService.WebApi
                 options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
 
             services.AddSingleton<HttpClient>();
+            services.AddSingleton<IIssuesProvider, IssuesProvider>();
             services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddScoped<IOrdersPresenter, OrdersPresenter>();
             services.AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>();

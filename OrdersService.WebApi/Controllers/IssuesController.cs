@@ -1,8 +1,6 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using OrdersService.WebApi.Managers;
 
 namespace OrdersService.WebApi.Controllers
 {
@@ -10,14 +8,11 @@ namespace OrdersService.WebApi.Controllers
     [Route("api/[controller]")]
     public class IssuesController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _searchUrl;
+        private readonly IIssuesProvider _issuesProvider;
 
-        public IssuesController(HttpClient httpClient, IConfiguration configuration)
+        public IssuesController(IIssuesProvider issuesProvider)
         {
-            _httpClient = httpClient;
-
-            _searchUrl = configuration["SearchUrl"];
+            _issuesProvider = issuesProvider;
         }
 
         [HttpGet("{orderId}")]
@@ -28,12 +23,9 @@ namespace OrdersService.WebApi.Controllers
                 return BadRequest("Order id is not defined.");
             }
 
-            var url = string.Format(_searchUrl, HttpUtility.UrlEncode(orderId));
-            var message = await _httpClient
-                                .GetAsync(url)
-                                .ConfigureAwait(false);
+            var result = await _issuesProvider.Search(orderId).ConfigureAwait(false);
 
-            return Ok(message.Content.ReadAsStringAsync());
+            return Ok(result);
         }
     }
 }
