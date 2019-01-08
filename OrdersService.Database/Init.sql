@@ -1,18 +1,9 @@
-﻿SET IDENTITY_INSERT [dbo].[Orders] ON 
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (1, CAST(N'2018-03-28T09:40:52.4000000+00:00' AS DateTimeOffset), N'id 1', 1.0000, N'name 1', N'address 1')
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (2, CAST(N'2018-03-28T09:41:00.5600000+00:00' AS DateTimeOffset), N'id 2', 2.0000, N'name 2', N'address 2')
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (3, CAST(N'2018-03-28T09:41:09.8233333+00:00' AS DateTimeOffset), N'id 3', 3.0000, N'name 3', N'address 3')
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (4, CAST(N'2018-03-28T09:41:21.8766667+00:00' AS DateTimeOffset), N'id 4', 4.0000, N'name 4', N'address 4')
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (5, CAST(N'2018-03-28T09:41:44.5900000+00:00' AS DateTimeOffset), N'id 5', 5.0000, N'name 5', N'address 4')
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (6, CAST(N'2018-03-28T09:41:56.5466667+00:00' AS DateTimeOffset), N'id 6', 6.0000, N'name 6', N'address 6')
-GO
-INSERT [dbo].[Orders] ([Id], [CreationTimestamp], [DisplayId], [Price], [CustomerName], [Address]) VALUES (7, CAST(N'2018-03-28T09:42:07.4866667+00:00' AS DateTimeOffset), N'id 7', 7.0000, N'name 7', N'address 7')
-GO
-SET IDENTITY_INSERT [dbo].[Orders] OFF
+﻿INSERT [dbo].[Orders] ([CreationTimestamp], [OrderId], [Price], [CustomerName], [PostCode], [Number], [Street], [City], [Country], [Phone]) VALUES 
+    (CAST(N'2018-03-28T09:40:52' AS DateTimeOffset), 'SAL100756', 10.0000, N'name 1', '1032AB', 13, N'Street', N'Amsterdam', N'The Netherlands', '0123456789'),
+    (CAST(N'2018-03-28T09:41:00' AS DateTimeOffset), 'SAL1003221', 2.0000, N'name 2', '2032AB', NULL, N'Street', N'Amsterdam', N'The Netherlands', NULL),
+    (CAST(N'2018-03-28T09:41:09' AS DateTimeOffset), 'SAL1005239', 3.0000, N'name 3', '3032AB', 15, N'Street', N'Amsterdam', N'The Netherlands', '0123456789'),
+    (CAST(N'2018-03-28T09:41:21' AS DateTimeOffset), 'SAL2000001', 4.0000, N'name 4', '4032AB', 16, N'Street', N'Amsterdam', N'The Netherlands', '0123456789'),
+    (CAST(N'2018-03-28T09:41:44' AS DateTimeOffset), 'SAL3000002', 5.0000, N'name 5', '5032AB', 17, N'Street', N'Amsterdam', N'The Netherlands', NULL),
+    (CAST(N'2018-03-28T09:41:56' AS DateTimeOffset), 'SAL4000003', 6.0000, N'name 6', '6032AB', 18, N'Street', N'Amsterdam', N'The Netherlands', NULL),
+    (CAST(N'2018-03-28T09:42:07' AS DateTimeOffset), 'SAL5000004', 7.0000, N'name 7', '7032AB', NULL, N'Street', N'Amsterdam', N'The Netherlands', '0123456789')
 GO

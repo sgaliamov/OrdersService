@@ -1,24 +1,16 @@
 <div class="wrapper">
-  <form class="k-form"
-        *ngIf="!!model"
-        novalidate
-        #editForm="ngForm"
-        (ngSubmit)="onSubmit()">
+  <form class="k-form" *ngIf="!!model" novalidate #editForm="ngForm" (ngSubmit)="onSubmit()">
     <fieldset>
-      <legend>{{model.id}}</legend>
+      <legend>{{model.orderId}}</legend>
 
       <label class="k-form-field">
         <span>
           Customer Name
           <span class="k-required">*</span>
         </span>
-        <input class="k-textbox"
-               name="customerName"
-               [(ngModel)]="model.customerName"
-               required
-               #name="ngModel" />
-        <div class="k-tooltip k-tooltip-validation"
-             *ngIf="name.invalid && (name.dirty || name.touched)">
+        <input class="k-textbox" maxlength="260" name="customerName" [(ngModel)]="model.customerName" required
+               #customerName="ngModel" />
+        <div class="k-tooltip k-tooltip-validation" *ngIf="customerName.invalid && (customerName.dirty || customerName.touched)">
           Customer Name is required
         </div>
       </label>
@@ -28,34 +20,66 @@
           Price
           <span class="k-required">*</span>
         </span>
-        <kendo-numerictextbox [format]="'c0'"
-                              name="price"
-                              [(ngModel)]="model.price"
-                              [min]="0"
-                              required></kendo-numerictextbox>
-        <div class="k-tooltip k-tooltip-validation"
-             *ngIf="editForm.controls.price && editForm.controls.price.invalid && (editForm.controls.price.dirty || editForm.controls.price.touched)">
+        <kendo-numerictextbox [format]="'c0'" name="price" [(ngModel)]="model.price" [min]="0" required></kendo-numerictextbox>
+        <div class="k-tooltip k-tooltip-validation" *ngIf="editForm.controls.price && editForm.controls.price.invalid && (editForm.controls.price.dirty || editForm.controls.price.touched)">
           Price is invalid
         </div>
       </label>
+
       <label class="k-form-field">
         <span>
-          Address
+          Street
+          <span class="k-required">*</span>
+        </span>
+        <input class="k-textbox" name="street" required maxlength="100" [(ngModel)]="model.street" />
+      </label>
+
+      <label class="k-form-field">
+        <span>
+          Number
           <span class="k-field-info">optional</span>
         </span>
-        <input class="k-textbox"
-               name="address"
-               [(ngModel)]="model.address" />
+        <input class="k-textbox" name="number" [(ngModel)]="model.number" />
       </label>
-    </fieldset>
-    <div class="buttons">
-      <button type="submit"
-              [disabled]="!editForm.form.valid"
-              class="k-button k-primary">Submit</button>
-      <button type="button"
-              [routerLink]="['/orders']"
-              class="k-button">Cancel</button>
 
+      <label class="k-form-field">
+        <span>
+          Post Code
+          <span class="k-required">*</span>
+        </span>
+        <input class="k-textbox" name="postCode" required maxlength="32" [(ngModel)]="model.postCode" />
+      </label>
+
+      <label class="k-form-field">
+        <span>
+          City
+          <span class="k-required">*</span>
+        </span>
+        <input class="k-textbox" name="city" required maxlength="100" [(ngModel)]="model.city" />
+      </label>
+
+      <label class="k-form-field">
+        <span>
+          Country
+          <span class="k-required">*</span>
+        </span>
+        <input class="k-textbox" name="country" required maxlength="32" [(ngModel)]="model.country" />
+      </label>
+
+      <label class="k-form-field">
+        <span>
+          Phone
+          <span class="k-field-info">optional</span>
+        </span>
+        <input class="k-textbox" type="number" name="phone" maxlength="10" [(ngModel)]="model.phone" />
+      </label>
+
+    </fieldset>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="!editForm.form.valid" class="k-button k-primary">Save</button>
+      &nbsp;
+      <button type="button" [routerLink]="['/orders']" class="k-button">Cancel</button>
     </div>
   </form>
 </div>

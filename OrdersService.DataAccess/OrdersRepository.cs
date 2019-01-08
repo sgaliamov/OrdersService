@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OrdersService.BusinessLogic.Contracts.DomainModels;
 using OrdersService.BusinessLogic.Contracts.Persistence;
-using OrdersService.DataAccess.Models;
+using OrdersService.DataAccess.Entities;
 
 namespace OrdersService.DataAccess
 {
@@ -24,7 +24,7 @@ namespace OrdersService.DataAccess
 
         public async Task<OrderEntity> GetByIdAsync(string id)
         {
-            var data = await _context.Orders.FirstOrDefaultAsync(x => x.DisplayId == id).ConfigureAwait(false);
+            var data = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == id).ConfigureAwait(false);
 
             return _mapper.Map<OrderEntity>(data);
         }
@@ -32,7 +32,7 @@ namespace OrdersService.DataAccess
         public async Task<Paged<OrderEntity[]>> GetByPageAsync(int page)
         {
             var data = await _context.Orders
-                                     .OrderBy(x => x.DisplayId)
+                                     .OrderBy(x => x.OrderId)
                                      .Skip((page - 1) * PageSize)
                                      .Take(PageSize)
                                      .ToArrayAsync()
@@ -47,7 +47,7 @@ namespace OrdersService.DataAccess
 
         public async Task AddOrUpdateAsync(OrderEntity entity)
         {
-            var data = await _context.Orders.FirstOrDefaultAsync(x => x.DisplayId == entity.DisplayId).ConfigureAwait(false);
+            var data = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == entity.OrderId).ConfigureAwait(false);
             if (data != null)
             {
                 _mapper.Map(entity, data);

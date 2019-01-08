@@ -8,7 +8,7 @@ export const getOrders = createSelector(ordersState, (state: OrdersState): Paged
   return {
     data: Object.keys(state.entities)
       .map(id => state.entities[id])
-      .sort((a, b) => a.id.localeCompare(b.id)),
+      .sort((a, b) => a.orderId.localeCompare(b.orderId)),
     total: state.total || 0
   };
 });

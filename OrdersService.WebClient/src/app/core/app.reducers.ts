@@ -33,11 +33,11 @@ export function ordersReducer(state: OrdersState = initialState, action: OrderAc
       return ordersAdapter.upsertOne(
         {
           ...dto,
-          id: action.payload.id
+          orderId: action.payload.orderId
         },
         {
           ...state,
-          selectedOrderId: action.payload.id
+          selectedOrderId: action.payload.orderId
         });
 
     case OrderActionTypes.SELECT_PAGE:

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,9 @@ using OrdersService.BusinessLogic;
 using OrdersService.BusinessLogic.CommandHandlers;
 using OrdersService.BusinessLogic.Commands;
 using OrdersService.BusinessLogic.Contracts.Commands;
-using OrdersService.BusinessLogic.Contracts.DomainModels;
 using OrdersService.BusinessLogic.Contracts.Persistence;
 using OrdersService.DataAccess;
-using OrdersService.DataAccess.Models;
+using OrdersService.DataAccess.Entities;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Serilog;
@@ -50,6 +50,8 @@ namespace OrdersService.WebApi
             services.AddDbContext<OrdersServiceContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
 
+            services.AddSingleton<HttpClient>();
+            services.AddSingleton<IIssuesProvider, IssuesProvider>();
             services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddScoped<IOrdersPresenter, OrdersPresenter>();
             services.AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>();
@@ -63,25 +65,19 @@ namespace OrdersService.WebApi
         {
             services.AddSingleton(Log.Logger);
 
-            services.AddAutoMapper(config =>
-            {
-                config.CreateMap<OrderEntity, OrderReadModel>()
-                      .ForMember(x => x.Id, o => o.MapFrom(x => x.DisplayId));
-
-                config.CreateMap<OrderInputModel, UpdateOrderCommand>()
-                      .IgnoreAllPropertiesWithAnInaccessibleSetter();
-
-                config.CreateMap<UpdateOrderCommand, OrderEntity>()
-                      .ForMember(x => x.DisplayId, o => o.MapFrom(x => x.Id));
-
-                config.CreateMap<OrderEntity, Orders>()
-                      .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
-            });
+            services.AddAutoMapper(ConfigureMapper);
 
             services.AddCors(options => options.AddPolicy("AllowAll",
-                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+                builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        }
+
+        private static void ConfigureMapper(IMapperConfigurationExpression config)
+        {
+            config.CreateMap<OrderInputModel, UpdateOrderCommand>();
+
+            RepositoryMapper.ConfigureMapper(config);
         }
     }
 }

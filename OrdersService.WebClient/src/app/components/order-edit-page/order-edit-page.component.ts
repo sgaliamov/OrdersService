@@ -38,7 +38,7 @@ export class OrderEditPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.store.dispatch(new UpdateOrder({
       order: this.model,
-      id: this.model.id
+      orderId: this.model.orderId
     }));
     this.router.navigate(['/orders']);
   }
