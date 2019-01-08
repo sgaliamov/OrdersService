@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,7 @@ namespace OrdersService.WebApi
             services.AddDbContext<OrdersServiceContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
 
+            services.AddSingleton<HttpClient>();
             services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddScoped<IOrdersPresenter, OrdersPresenter>();
             services.AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>();
