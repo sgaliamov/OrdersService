@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.BusinessLogic", "OrdersService.BusinessLogic\OrdersService.BusinessLogic.csproj", "{0F6BEFC2-2683-4E54-9948-CB7B52C2327B}"
 EndProject
@@ -18,13 +18,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Files", ".Files", "{1356F918-3E3F-4A17-AFC5-7A815D3E7D14}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		start-test-localdb.ps1 = start-test-localdb.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.Tests", "OrdersService.Tests\OrdersService.Tests.csproj", "{BDAF1A6C-78FE-4B78-BDB7-538D01794B23}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.WebApi", "OrdersService.WebApi\OrdersService.WebApi.csproj", "{93879417-D750-408D-89B4-E8B52213585A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService.DataAccess.Tests", "OrdersService.DataAccess.Tests\OrdersService.DataAccess.Tests.csproj", "{D089CFD2-9B2A-4DB1-8E75-5C1FE75E87DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersService.DataAccess.Tests", "OrdersService.DataAccess.Tests\OrdersService.DataAccess.Tests.csproj", "{D089CFD2-9B2A-4DB1-8E75-5C1FE75E87DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
