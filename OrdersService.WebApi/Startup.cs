@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using OrdersService.BusinessLogic;
 using OrdersService.BusinessLogic.CommandHandlers;
 using OrdersService.BusinessLogic.Commands;
@@ -42,7 +43,9 @@ namespace OrdersService.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowAll");
+            app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseCors("AllowWebClient");
             app.UseMvc();
         }
 
@@ -68,8 +71,18 @@ namespace OrdersService.WebApi
 
             services.AddAutoMapper(ConfigureMapper);
 
-            services.AddCors(options => options.AddPolicy("AllowAll",
+            services.AddCors(options => options.AddPolicy("AllowWebClient",
                 builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("doc",
+                                   new OpenApiInfo
+                                   {
+                                       Version = "1",
+                                       Title = "Order API"
+                                   });
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
