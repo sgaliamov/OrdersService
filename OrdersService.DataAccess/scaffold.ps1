@@ -1,5 +1,5 @@
 ﻿Write-Host "Scaffolding..." -ForegroundColor Green
-dotnet ef dbcontext scaffold "Server=localhost;Integrated Security=True;Database=OrdersService" `
+dotnet ef dbcontext scaffold "Server=(LocalDb)\TestDb;Integrated Security=True;Database=OrdersService" `
     Microsoft.EntityFrameworkCore.SqlServer `
     -c OrdersServiceContext -o Entities `
     --force
