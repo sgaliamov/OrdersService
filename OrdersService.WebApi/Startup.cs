@@ -45,6 +45,7 @@ namespace OrdersService.WebApi
 
             app.UseHttpsRedirection();
             app.UseSwagger();
+            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/doc/swagger.json", "Order API"); });
             app.UseCors("AllowWebClient");
             app.UseMvc();
         }

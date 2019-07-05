@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Managers;
+using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Controllers
 {
@@ -15,7 +16,7 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpGet("list/{page:int?}")]
-        public async Task<OkObjectResult> GetByPage(int? page)
+        public async Task<ActionResult<OrderReadModel[]>> GetByPage(int? page)
         {
             var result = await _ordersPresenter.GetByPageAsync(page ?? 1).ConfigureAwait(false);
 
@@ -23,7 +24,7 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpGet("id/{id}")]
-        public async Task<ActionResult> GetById(string id)
+        public async Task<ActionResult<OrderReadModel>> GetById(string id)
         {
             var model = await _ordersPresenter.GetByIdAsync(id).ConfigureAwait(false);
             if (model == null)
