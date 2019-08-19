@@ -74,3 +74,5 @@ Of course, the list is not complete and will be extended.
 
 - Define type for `ActionResult`.
 - Define `ProducesResponseType` when an action returns multiple status codes.
+- Add XML docs.
+- Use `Microsoft.AspNetCore.Mvc.Api.Analyzers`.

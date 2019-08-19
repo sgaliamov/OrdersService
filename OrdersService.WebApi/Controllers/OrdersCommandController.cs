@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.BusinessLogic;
 using OrdersService.WebApi.Managers;
@@ -21,6 +22,8 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Update(string id, [FromBody] OrderInputModel data)
         {
             var command = _commandBuilder.BuildUpdateOrderCommand(id, data);
@@ -31,6 +34,8 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Create([FromBody] OrderInputModel data)
         {
             var command = _commandBuilder.BuildAddOrderCommand(data);
