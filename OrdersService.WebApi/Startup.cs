@@ -82,16 +82,6 @@ namespace OrdersService.WebApi
                                      .AllowAnyHeader()
                                      .AllowAnyMethod()));
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("doc",
-                                   new OpenApiInfo
-                                   {
-                                       Version = "v1",
-                                       Title = "Order API"
-                                   });
-            });
-
             void RemoveTextJson(MvcOptions options)
             {
                 var jsonOutputFormatter = options.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();
@@ -101,15 +91,25 @@ namespace OrdersService.WebApi
                 }
             }
 
-            services.AddMvc(config =>
+            services.AddMvc(options =>
                 {
                     //options.ReturnHttpNotAcceptable = true;
 
-                    RemoveTextJson(config);
+                    RemoveTextJson(options);
 
-                    config.Filters.Add(new ValidateModelAttribute());
+                    options.Filters.Add(new ValidateModelAttribute());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("doc",
+                                   new OpenApiInfo
+                                   {
+                                       Version = "v1",
+                                       Title = "Order API"
+                                   });
+            });
         }
 
         private static void ConfigureMapper(IMapperConfigurationExpression config)
@@ -132,7 +132,14 @@ namespace OrdersService.WebApi
                 return;
             }
 
-            actionContext.Result = new BadRequestObjectResult(actionContext.ModelState);
+            if (actionContext.ActionArguments.Count == actionContext.ActionDescriptor.Parameters.Count)
+            {
+                actionContext.Result = new UnprocessableEntityObjectResult(actionContext.ModelState);
+            }
+            else
+            {
+                actionContext.Result = new BadRequestObjectResult(actionContext.ModelState);
+            }
         }
     }
 }
