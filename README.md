@@ -73,6 +73,7 @@ Of course, the list is not complete and will be extended.
 ## Swagger Best Practices
 
 - Define type for `ActionResult`.
-- Define `ProducesResponseType` when an action returns multiple status codes.
+- Define only that global `ProducesResponseType` attributes which are processed globally automatically.
+- Define rest `ProducesResponseType` attributes when an action returns multiple status codes.
 - Add XML docs.
-- Use `Microsoft.AspNetCore.Mvc.Api.Analyzers`.
+- Use `Microsoft.AspNetCore.Mvc.Api.Analyzers`. But it will not cover all cases.

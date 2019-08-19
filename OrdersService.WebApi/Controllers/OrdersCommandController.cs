@@ -23,7 +23,6 @@ namespace OrdersService.WebApi.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IdField>> Update(string id, [FromBody] OrderInputModel data)
         {
             var command = _commandBuilder.BuildUpdateOrderCommand(id, data);
@@ -34,15 +33,14 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IdField>> Create([FromBody] OrderInputModel data)
         {
             var command = _commandBuilder.BuildAddOrderCommand(data);
 
             var orderId = await _commandDispatcher.ExecuteAsync(command).ConfigureAwait(false);
 
-            return new IdField { Id = orderId };
+            return StatusCode(StatusCodes.Status201Created, new IdField { Id = orderId });
         }
     }
 }

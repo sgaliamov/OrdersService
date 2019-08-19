@@ -4,6 +4,7 @@ using System.Net.Http;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -98,6 +99,9 @@ namespace OrdersService.WebApi
                     RemoveTextJson(options);
 
                     options.Filters.Add(new ValidateModelAttribute());
+                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
+                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
+                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status422UnprocessableEntity));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

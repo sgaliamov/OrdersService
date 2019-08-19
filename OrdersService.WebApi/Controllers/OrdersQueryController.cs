@@ -19,7 +19,6 @@ namespace OrdersService.WebApi.Controllers
 
         [HttpGet("list/{page:int?}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Paged<OrderReadModel[]>>> GetByPage(int? page)
         {
             return await _ordersPresenter.GetByPageAsync(page ?? 1).ConfigureAwait(false);
@@ -28,7 +27,6 @@ namespace OrdersService.WebApi.Controllers
         [HttpGet("id/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<OrderReadModel>> GetById(string id)
         {
             var model = await _ordersPresenter.GetByIdAsync(id).ConfigureAwait(false);

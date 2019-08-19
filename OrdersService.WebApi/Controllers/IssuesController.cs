@@ -6,7 +6,6 @@ using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
     public class IssuesController : ControllerBase
     {
