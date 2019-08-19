@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -70,17 +71,20 @@ namespace OrdersService.WebApi
         {
             services.AddSingleton(Log.Logger);
 
-            services.AddAutoMapper(ConfigureMapper);
+            services.AddAutoMapper(ConfigureMapper, AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddCors(options => options.AddPolicy("AllowWebClient",
-                builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(options => options.AddPolicy(
+                                 "AllowWebClient",
+                                 builder => builder.WithOrigins("http://localhost:4200")
+                                     .AllowAnyHeader()
+                                     .AllowAnyMethod()));
 
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("doc",
                                    new OpenApiInfo
                                    {
-                                       Version = "1",
+                                       Version = "v1",
                                        Title = "Order API"
                                    });
             });
@@ -92,6 +96,7 @@ namespace OrdersService.WebApi
         {
             config.CreateMap<OrderInputModel, UpdateOrderCommand>();
             config.CreateMap<AddOrderCommand, OrderEntity>().ForMember(x => x.OrderId, c => c.Ignore());
+            config.CreateMap<OrderEntity, OrderReadModel>();
 
             RepositoryMapper.ConfigureMapper(config);
         }

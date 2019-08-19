@@ -11,7 +11,8 @@ namespace OrdersService.DataAccess
             config.CreateMap<OrderEntity, Orders>()
                   .ForMember(m => m.Id, c => c.Ignore())
                   .ForMember(m => m.CreationTimestamp, c => c.Ignore())
-                  .ForMember(m => m.Version, c => c.Ignore());
+                  .ForMember(m => m.Version, c => c.Ignore())
+                  .ReverseMap();
         }
     }
 }
