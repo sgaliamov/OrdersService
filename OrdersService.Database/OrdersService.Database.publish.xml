@@ -5,7 +5,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseName>OrdersService</TargetDatabaseName>
     <DeployScriptFileName>OrdersService.Database.sql</DeployScriptFileName>
-    <TargetConnectionString>Data Source=localhost;Integrated Security=True;</TargetConnectionString>
+    <TargetConnectionString>Data Source=(localdb)\TestDb;Integrated Security=True;</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
     <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
     <CreateNewDatabase>True</CreateNewDatabase>
