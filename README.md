@@ -48,8 +48,6 @@ The goal of the project to have topics for the discussion on an interview and to
 
 **Optimistic locks** - it's a good practice to prevent users concurrently override data. We should provide versioning data for each update.
 
-**Swagger** - easy way to have documentation and testing tool for an API.
-
 **DDD and aggregates** - for big complex domain we could apply [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) practices and create domain aggregates. Personally, I prefer anemic model and functional programming style.
 
 **Query handler to improve CQRS** - in complex cases we could have a query handler, similar to `ICommandDispatcher` for the commands flow.
@@ -71,3 +69,8 @@ The goal of the project to have topics for the discussion on an interview and to
 **E2e test** - another good reason use Angular is [Protractor](https://www.protractortest.org/#/). Extremely useful testing tool.
 
 Of course, the list is not complete and will be extended.
+
+## Swagger Best Practices
+
+- Define type for `ActionResult`.
+- Define `ProducesResponseType` when an action returns multiple status codes.

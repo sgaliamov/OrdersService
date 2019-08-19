@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Managers;
+using OrdersService.WebApi.Models;
 
 namespace OrdersService.WebApi.Controllers
 {
@@ -16,16 +18,17 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpGet("{orderId}")]
-        public async Task<ActionResult> Get(string orderId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IssueReadModel[]>> Get(string orderId)
         {
-            if (orderId == null)
+            var result = await _issuesProvider.Search(orderId).ConfigureAwait(false);
+            if (result == null)
             {
-                return BadRequest("Order id is not defined.");
+                return NotFound();
             }
 
-            var result = await _issuesProvider.Search(orderId).ConfigureAwait(false);
-
-            return Ok(result);
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -30,6 +31,11 @@ namespace OrdersService.WebApi.Managers
             var message = await _httpClient
                                 .GetAsync(url)
                                 .ConfigureAwait(false);
+
+            if (message.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
 
             message.EnsureSuccessStatusCode();
 
