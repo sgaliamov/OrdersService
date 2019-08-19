@@ -83,10 +83,15 @@ namespace OrdersService.WebApi
                                      .AllowAnyHeader()
                                      .AllowAnyMethod()));
 
-            void RemoveTextJson(MvcOptions options)
+            void ConfigureMediaTypes(MvcOptions options)
             {
-                var jsonOutputFormatter = options.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();
-                if (jsonOutputFormatter?.SupportedMediaTypes.Contains("text/json") == true)
+                options.ReturnHttpNotAcceptable = true;
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
+                options.Filters.Add(new ConsumesAttribute("application/json"));
+
+                var jsonOutputFormatter = options.OutputFormatters.OfType<JsonOutputFormatter>().Single();
+                if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
                 {
                     jsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
                 }
@@ -94,9 +99,7 @@ namespace OrdersService.WebApi
 
             services.AddMvc(options =>
                 {
-                    //options.ReturnHttpNotAcceptable = true;
-
-                    RemoveTextJson(options);
+                    ConfigureMediaTypes(options);
 
                     options.Filters.Add(new ValidateModelAttribute());
                     options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
