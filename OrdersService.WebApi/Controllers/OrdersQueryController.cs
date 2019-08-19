@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
@@ -24,6 +25,8 @@ namespace OrdersService.WebApi.Controllers
         }
 
         [HttpGet("id/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<OrderReadModel>> GetById(string id)
         {
             var model = await _ordersPresenter.GetByIdAsync(id).ConfigureAwait(false);

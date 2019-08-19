@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -89,16 +92,47 @@ namespace OrdersService.WebApi
                                    });
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            void RemoveTextJson(MvcOptions options)
+            {
+                var jsonOutputFormatter = options.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();
+                if (jsonOutputFormatter?.SupportedMediaTypes.Contains("text/json") == true)
+                {
+                    jsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
+                }
+            }
+
+            services.AddMvc(config =>
+                {
+                    //options.ReturnHttpNotAcceptable = true;
+
+                    RemoveTextJson(config);
+
+                    config.Filters.Add(new ValidateModelAttribute());
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         private static void ConfigureMapper(IMapperConfigurationExpression config)
         {
             config.CreateMap<OrderInputModel, UpdateOrderCommand>();
+            config.CreateMap<OrderInputModel, AddOrderCommand>();
             config.CreateMap<AddOrderCommand, OrderEntity>().ForMember(x => x.OrderId, c => c.Ignore());
             config.CreateMap<OrderEntity, OrderReadModel>();
 
             RepositoryMapper.ConfigureMapper(config);
+        }
+    }
+
+    internal sealed class ValidateModelAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext actionContext)
+        {
+            if (actionContext.ModelState.IsValid)
+            {
+                return;
+            }
+
+            actionContext.Result = new BadRequestObjectResult(actionContext.ModelState);
         }
     }
 }
