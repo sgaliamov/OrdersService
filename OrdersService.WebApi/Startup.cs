@@ -25,11 +25,13 @@ using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace OrdersService.WebApi
 {
     public sealed class Startup
     {
+        private const string WebClientPolicyName = "AllowWebClient";
         private const string ApiTitle = "Order API";
 
         public Startup(IConfiguration configuration)
@@ -47,6 +49,11 @@ namespace OrdersService.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            void ConfigureSwaggerUI(SwaggerUIOptions options)
+            {
+                options.SwaggerEndpoint("/swagger/doc/swagger.json", ApiTitle);
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,8 +61,8 @@ namespace OrdersService.WebApi
 
             app.UseHttpsRedirection()
                .UseSwagger()
-               .UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/doc/swagger.json", ApiTitle); })
-               .UseCors("AllowWebClient")
+               .UseSwaggerUI(ConfigureSwaggerUI)
+               .UseCors(WebClientPolicyName)
                .UseMvc();
         }
 
@@ -90,7 +97,7 @@ namespace OrdersService.WebApi
             void ConfigureCors(CorsOptions options)
             {
                 options.AddPolicy(
-                    "AllowWebClient",
+                    WebClientPolicyName,
                     builder => builder.WithOrigins("http://localhost:4200")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod());

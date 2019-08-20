@@ -79,4 +79,4 @@ Of course, the list is not complete and will be extended.
 - Or use `DefaultApiConventions` for simple generic APIs.
 - Add XML docs.
 - Define supported media types explicitly (`ProducesAttribute`, `ConsumesAttribute`).
-- sdf
+- Use `Microsoft.AspNetCore.Mvc.Api.Versioning` to supprot versioning.
