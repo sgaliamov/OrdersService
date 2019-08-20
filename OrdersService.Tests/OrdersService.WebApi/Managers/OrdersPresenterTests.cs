@@ -9,7 +9,7 @@ using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Xunit;
 
-namespace OrdersService.Tests.OrdersService.WebApi.Models
+namespace OrdersService.Tests.OrdersService.WebApi.Managers
 {
     public sealed class OrdersPresenterTests
     {
