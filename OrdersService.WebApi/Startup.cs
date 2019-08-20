@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +24,14 @@ using OrdersService.DataAccess.Entities;
 using OrdersService.WebApi.Managers;
 using OrdersService.WebApi.Models;
 using Serilog;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OrdersService.WebApi
 {
     public sealed class Startup
     {
+        private const string ApiTitle = "Order API";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,44 +52,61 @@ namespace OrdersService.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-            app.UseSwagger();
-            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/doc/swagger.json", "Order API"); });
-            app.UseCors("AllowWebClient");
-            app.UseMvc();
+            app.UseHttpsRedirection()
+               .UseSwagger()
+               .UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/doc/swagger.json", ApiTitle); })
+               .UseCors("AllowWebClient")
+               .UseMvc();
         }
 
         private void ConfigureDependencies(IServiceCollection services)
         {
-            services.AddDbContext<OrdersServiceContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")));
-
-            services.AddSingleton<HttpClient>();
-            services.AddSingleton<IIssuesProvider, IssuesProvider>();
-            services.AddScoped<IOrdersRepository, OrdersRepository>();
-            services.AddScoped<IOrdersPresenter, OrdersPresenter>();
-            services.AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>();
-            services.AddScoped<ICommandHandler<AddOrderCommand>, AddOrderCommandHandler>();
-            services.AddScoped<ICommandBuilder, CommandBuilder>();
-            services.AddScoped<ICommandHandlerFactory, CommandHandlerFactory>();
-            services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+            services.AddSingleton(Log.Logger)
+                    .AddDbContext<OrdersServiceContext>(
+                        options => options.UseSqlServer(Configuration.GetConnectionString("OrdersService")))
+                    .AddSingleton<HttpClient>()
+                    .AddSingleton<IIssuesProvider, IssuesProvider>()
+                    .AddScoped<IOrdersRepository, OrdersRepository>()
+                    .AddScoped<IOrdersPresenter, OrdersPresenter>()
+                    .AddScoped<ICommandHandler<UpdateOrderCommand>, UpdateOrderCommandHandler>()
+                    .AddScoped<ICommandHandler<AddOrderCommand>, AddOrderCommandHandler>()
+                    .AddScoped<ICommandBuilder, CommandBuilder>()
+                    .AddScoped<ICommandHandlerFactory, CommandHandlerFactory>()
+                    .AddScoped<ICommandDispatcher, CommandDispatcher>();
         }
 
         private static void ConfigureInfrastructure(IServiceCollection services)
         {
-            services.AddSingleton(Log.Logger);
+            void ConfigureSwagger(SwaggerGenOptions options)
+            {
+                options.SwaggerDoc("doc",
+                                   new OpenApiInfo
+                                   {
+                                       Version = "v1",
+                                       Title = ApiTitle
+                                   });
+            }
 
-            services.AddAutoMapper(ConfigureMapper, AppDomain.CurrentDomain.GetAssemblies());
+            void ConfigureCors(CorsOptions options)
+            {
+                options.AddPolicy(
+                    "AllowWebClient",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            }
 
-            services.AddCors(options => options.AddPolicy(
-                                 "AllowWebClient",
-                                 builder => builder.WithOrigins("http://localhost:4200")
-                                     .AllowAnyHeader()
-                                     .AllowAnyMethod()));
+            services.AddAutoMapper(ConfigureMapper, AppDomain.CurrentDomain.GetAssemblies())
+                    .AddCors(ConfigureCors)
+                    .AddSwaggerGen(ConfigureSwagger)
+                    .AddMvc(ConfigureMvc)
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        }
 
+        private static void ConfigureMvc(MvcOptions mvcOptions)
+        {
             void ConfigureMediaTypes(MvcOptions options)
             {
-                options.ReturnHttpNotAcceptable = true;
                 options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
                 options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
                 options.Filters.Add(new ConsumesAttribute("application/json"));
@@ -95,28 +116,20 @@ namespace OrdersService.WebApi
                 {
                     jsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
                 }
+
+                options.ReturnHttpNotAcceptable = true;
+                options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
             }
 
-            services.AddMvc(options =>
-                {
-                    ConfigureMediaTypes(options);
-
-                    options.Filters.Add(new ValidateModelAttribute());
-                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
-                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
-                    options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status422UnprocessableEntity));
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddSwaggerGen(options =>
+            void EnableModelStateValidation(MvcOptions options)
             {
-                options.SwaggerDoc("doc",
-                                   new OpenApiInfo
-                                   {
-                                       Version = "v1",
-                                       Title = "Order API"
-                                   });
-            });
+                options.Filters.Add(new ValidateModelFilter());
+                options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
+                options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status422UnprocessableEntity));
+            }
+
+            ConfigureMediaTypes(mvcOptions);
+            EnableModelStateValidation(mvcOptions);
         }
 
         private static void ConfigureMapper(IMapperConfigurationExpression config)
@@ -128,24 +141,24 @@ namespace OrdersService.WebApi
 
             RepositoryMapper.ConfigureMapper(config);
         }
-    }
 
-    internal sealed class ValidateModelAttribute : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext actionContext)
+        private sealed class ValidateModelFilter : ActionFilterAttribute
         {
-            if (actionContext.ModelState.IsValid)
+            public override void OnActionExecuting(ActionExecutingContext actionContext)
             {
-                return;
-            }
+                if (actionContext.ModelState.IsValid)
+                {
+                    return;
+                }
 
-            if (actionContext.ActionArguments.Count == actionContext.ActionDescriptor.Parameters.Count)
-            {
-                actionContext.Result = new UnprocessableEntityObjectResult(actionContext.ModelState);
-            }
-            else
-            {
-                actionContext.Result = new BadRequestObjectResult(actionContext.ModelState);
+                if (actionContext.ActionArguments.Count == actionContext.ActionDescriptor.Parameters.Count)
+                {
+                    actionContext.Result = new UnprocessableEntityObjectResult(actionContext.ModelState);
+                }
+                else
+                {
+                    actionContext.Result = new BadRequestObjectResult(actionContext.ModelState);
+                }
             }
         }
     }
